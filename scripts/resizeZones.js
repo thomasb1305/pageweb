@@ -149,6 +149,9 @@ function updateZones() {
     }
 
 }
+// print pour s'assurer que le fichier est chargé
+console.log("resizeZones.js chargé");
+
 
 // Mise à jour lors du chargement et redimensionnement
 window.addEventListener('load', updateZones);
