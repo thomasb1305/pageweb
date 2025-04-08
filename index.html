@@ -1,25 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Tapisserie de Bayeux - Scène 1</title>
-        <meta name="description" content="Scène numéro 1 de la tapisserie de Bayeux">
-        <link rel="icon" sizes="16x16" href="https://www.bayeuxmuseum.com/wp-content/themes/bayeux-museum-highfive/imgs/favicon/favicon-16x16.png">
-        <style>
-            html, body {
-                height: 100%;
-                margin: 0;
-                padding: 0;
-            }
-            body {
-                /* Ajout de l'image comme image de fond, sans répétition et centrée */
-                background: url('images/1deBase.png') no-repeat center center fixed;
-                /* "contain" permet d'avoir l'image qui est toujours entièrement visible peu importe la taille de la fenetre et sans déformation */
-                background-size: contain;
-            }
-        </style>
-        <body>
-        </body>
+    <body>
+        <div class="zone1">
+            <!-- Zone 1 -->
+            <p class="zone11">
+                <!-- Zone1.1-->
+                 chapiteau de gauche du chateau.
+            </p>
+            <div class="zone12">
+                <!-- Zone1.2-->
+                 chapiteau central du chateau, plus grand que les autres.
+            </div>
+            <div class="zone13">
+                <!-- Zone1.3-->
+                 chapiteau de droite du chateau.
+            </div>
+        </div>
+        <div class="zone2" >
+            <!-- Zone2 -->
+             intérieur du chateau, un roi et deux personnes discutent. Le roi est assis sur son trone,
+             les deux autres sont debout devant lui. Le roi est habillé en vert, avec une couronne et un septre.
+        </div>
+
+        <script src="scripts/resizeZones.js"></script>
+        
+    </body>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            /* Ajout de l'image comme image de fond, sans répétition et centrée */
+            background: url('images/1.png') no-repeat center center fixed;
+            /* "contain" permet d'avoir l'image qui est toujours entièrement visible peu importe la taille de la fenetre et sans déformation */
+            background-size: contain;
+        }
+        /* Style pour la 1ere zone */
+        .zone1 {
+            position: absolute;
+            box-sizing: border-box; /* Inclut la bordure dans la taille */
+        }
+        /* Style pour la 2eme zone */
+        .zone2 {
+            position: absolute;
+            box-sizing: border-box; /* Inclut la bordure dans la taille */
+        }
+        .zone11, .zone12, .zone13 {
+            position: absolute;
+            box-sizing: border-box; /* Inclut la bordure dans la taille */
+        }
+    </style>
 </html>
