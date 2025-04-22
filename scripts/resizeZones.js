@@ -126,6 +126,26 @@ function updateZones() {
                 zone13.style.width = zone13Width + 'px';
                 zone13.style.height = zone13Height + 'px';
             }
+            //sous zone 1.4 (fenetre)
+            // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
+            const zone14BordGauche = 53;   // px depuis le bord gauche de l'image
+            const zone14BordHaut = 200;    // px depuis le haut de l'image
+            const zone14BordDroite = 120;  // Largeur de la zone en pixels
+            const zone14BordBas = 167; // Hauteur de la zone en pixels
+            // Calcul des coordonnées et dimensions de la zone dans l'affichage redimensionné
+            const zone14Left = zone14BordGauche * scale;
+            const zone14Top = zone14BordHaut * scale;
+            const zone14Width = zone14BordDroite * scale;
+            const zone14Height = zone14BordBas * scale;
+            // Mise à jour du style de l'overlay pour qu'il recouvre exactement la zone souhaitée
+            let zone14 = document.querySelector(".zone14");
+            if (zone14) {
+                zone14.style.left = zone14Left + 'px';
+                zone14.style.top = zone14Top + 'px';
+                zone14.style.width = zone14Width + 'px';
+                zone14.style.height = zone14Height + 'px';
+            }
+
 
 
 //DEUXIEME ZONE (bleu)

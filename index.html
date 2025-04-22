@@ -16,6 +16,10 @@
                 <!-- Zone1.3-->
                  chapiteau de droite du chateau.
             </div>
+            <div  class="zone14">
+                <!-- Zone1.4-->
+                 fenêtre orné d'une décoration
+            </div>
         </div>
         <div class="zone2" >
             <!-- Zone2 -->
@@ -23,6 +27,8 @@
              les deux autres sont debout devant lui. Le roi est habillé en vert, avec une couronne et un septre.
         </div>
 
+
+        <!-- Ajout du script qui défini les tailles des divs -->
         <script src="scripts/resizeZones.js"></script>
         
     </body>
@@ -39,20 +45,19 @@
             background-size: contain;
             font-size: 10pt;
         }
-        /* Style pour la 1ere zone */
-        .zone1 {
+        /* Style pour toutes les zones */
+        .zone1, .zone11, .zone12, .zone13, .zone14, .zone2 {
             position: absolute;
             box-sizing: border-box; /* Inclut la bordure dans la taille */
         }
-        /* Style pour la 2eme zone */
-        .zone2 {
+
+        .newZone {
             position: absolute;
+            border: 2px dashed red;
+            background-color: rgba(255, 0, 0, 0.1);
             box-sizing: border-box; /* Inclut la bordure dans la taille */
         }
-        .zone11, .zone12, .zone13 {
-            position: absolute;
-            box-sizing: border-box; /* Inclut la bordure dans la taille */
-        }
+
         p{
             font-size: 65%;
 
