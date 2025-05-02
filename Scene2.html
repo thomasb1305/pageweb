@@ -1,62 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <body>
-        <H1>PAGE 222222</H1>
         <!--<button id="previousZone">Zone Précédente</button>-->
-        <div class="zone1">
-            Un grand chateau avec deux tours et un grand chapiteau au milieu.
-            <!-- Zone 1 -->
-            <p class="zone11">
-                <!-- Zone1.1-->
-                 chapiteau de gauche du chateau.
-            </p>
-            <div class="zone12">
-                <!-- Zone1.2-->
-                 chapiteau central du chateau, plus grand que les autres.
-            </div>
-            <div class="zone13">
-                <!-- Zone1.3-->
-                 chapiteau de droite du chateau.
-            </div>
-            <div  class="zone14">
-                <!-- Zone1.4-->
-                Mur du chateau, avec une fenêtre en son centre orné de décorations.
-                <div class="zone141">
-                    <!-- Zone1.4.1-->
-                    Fenêtre du chateau.
-                </div>
-                <div class="zone142">
-                    <!-- Zone1.4.2-->
-                    Trois petites fenêtres
-                </div>
-            </div>
-        </div>
-        <div class="zone2" >
-            <!-- Zone2 -->
-             intérieur du chateau, un roi et deux personnes discutent. Le roi est assis sur son trone,
-             les deux autres sont debout devant lui. Le roi est habillé en vert, avec une couronne et un septre.
-
-            <div class="zone21">
-                <!-- Zone2.1-->
-                 le roi, assis sur son trone et tenant un septre dans sa main gauche
-
-                <div class="zone211">
-                    <!-- Zone2.1.1-->
-                     la couronne du roi, posée sur sa tête.
-                </div>
-                <div class="zone212">
-                    <!-- Zone2.1.2-->
-                     Le septre du roi.
-                </div>
-                <div class="zone213">
-                    <!-- Zone2.1.2-->
-                     Les pieds du roi, posés sur un repose-pieds en bois.
-                </div>
-            </div>
-        </div>
-
+        <a href="https://pageweb-ten.vercel.app/index.html" class="previousScene">Scène précèdente</a>
+        
         <!-- Boutton pour passer à la suite de la tapisserie -->
-        <a href="https://pageweb-ten.vercel.app/Scene2.html" class="nextScene">Zone Suivante</a>
+        <a href="https://pageweb-ten.vercel.app/Scene2.html" class="nextScene">Scène Suivante</a>
 
         <!-- Ajout du script qui défini les tailles des divs -->
         <script src="scripts/resizeZones.js"></script>
@@ -70,7 +19,7 @@
         }
         body {
             /* Ajout de l'image comme image de fond, sans répétition et centrée */
-            background: url('images/1.png') no-repeat center center fixed;
+            background: url('images/2.png') no-repeat center center fixed;
             /* "contain" permet d'avoir l'image qui est toujours entièrement visible peu importe la taille de la fenetre et sans déformation */
             background-size: contain;
         }
@@ -78,7 +27,7 @@
             font-size: 65%;/*la taille des textes est adapté à la taille de chaque zone */
         }
         /* Style pour toutes les zones */
-         .zone1, .zone11, .zone12, .zone13, .zone14, .zone141, .zone142, .zone2,  .zone21, .zone211, .zone212 {
+         .zone1 {
             position: absolute;
             box-sizing: border-box; /* Inclut la bordure dans la taille */
             /*border: 2px dashed red;
@@ -92,7 +41,7 @@
             box-sizing: border-box; /* Inclut la bordure dans la taille */
         }
         /* Style pour le bouton  */
-        .nextScene {
+        .nextScene, .previousScene {
         position: absolute;
         background-color: rgba(229, 229, 229, 0.381);
         color: grey;
