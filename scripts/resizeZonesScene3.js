@@ -28,8 +28,8 @@ function updateZones() {
     // Utiliser les dimensions détectées, sinon des valeurs par défaut (à ajuster si besoin)
     let imageWidth, imageHeight;
     if (imgWidth === null || imgHeight === null) {
-        imageWidth = 1614;
-        imageHeight = 1462;
+        imageWidth =756;
+        imageHeight = 534;
     } else {
         imageWidth = imgWidth;
         imageHeight = imgHeight;
