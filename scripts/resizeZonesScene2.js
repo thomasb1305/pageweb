@@ -52,10 +52,10 @@ function updateZones() {
     
 //PREMIERE ZONE (ROUGE)
     // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
-    const zone1BordGauche = 165;   // px depuis le bord gauche de l'image
-    const zone1BordHaut = 280;    // px depuis le haut de l'image
-    const zone1BordDroite = 220;  // Largeur de la zone en pixels
-    const zone1BordBas = 365; // Hauteur de la zone en pixels
+    const zone1BordGauche = 5;   // px depuis le bord gauche de l'image
+    const zone1BordHaut = 595;    // px depuis le haut de l'image
+    const zone1BordDroite = 950;  // Largeur de la zone en pixels
+    const zone1BordBas = 660; // Hauteur de la zone en pixels
     // Calcul des coordonnées et dimensions de la zone dans l'affichage redimensionné
     const zone1Left = offsetX + zone1BordGauche * scale;
     const zone1Top = offsetY + zone1BordHaut * scale;
@@ -72,9 +72,9 @@ function updateZones() {
         //sous zone 1.1 (chapiteau de gauche)
             // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
             const zone11BordGauche = 0;   // px depuis le bord gauche de l'image
-            const zone11BordHaut = 5;    // px depuis le haut de l'image
-            const zone11BordDroite = 50;  // Largeur de la zone en pixels
-            const zone11BordBas = 45; // Hauteur de la zone en pixels
+            const zone11BordHaut = 0;    // px depuis le haut de l'image
+            const zone11BordDroite = 210;  // Largeur de la zone en pixels
+            const zone11BordBas = 650; // Hauteur de la zone en pixels
             // Calcul des coordonnées et dimensions de la zone dans l'affichage redimensionné
             const zone11Left = zone11BordGauche * scale;
             const zone11Top = zone11BordHaut * scale;
@@ -88,13 +88,39 @@ function updateZones() {
                 zone11.style.width = zone11Width + 'px';
                 zone11.style.height = zone11Height + 'px';
             }
-            zone142 = document.querySelector(".zone142");
-                    if (zone142) {
-                        zone142.style.left = zone142Left + 'px';
-                        zone142.style.top = zone142Top + 'px';
-                        zone142.style.width = zone142Width + 'px';
-                        zone142.style.height = zone142Height + 'px';
+            zone11 = document.querySelector(".zone11");
+                    if (zone11) {
+                        zone11.style.left = zone11Left + 'px';
+                        zone11.style.top = zone11Top + 'px';
+                        zone11.style.width = zone11Width + 'px';
+                        zone11.style.height = zone11Height + 'px';
                     }
+                //sous zone 1.1.1 (chapiteau de gauche)
+                    // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
+                    const zone111BordGauche = 95;   // px depuis le bord gauche de l'image
+                    const zone111BordHaut = 275;    // px depuis le haut de l'image
+                    const zone111BordDroite = 95;  // Largeur de la zone en pixels
+                    const zone111BordBas = 353; // Hauteur de la zone en pixels
+                    // Calcul des coordonnées et dimensions de la zone dans l'affichage redimensionné
+                    const zone111Left = zone111BordGauche * scale;
+                    const zone111Top = zone111BordHaut * scale;
+                    const zone111Width = zone111BordDroite * scale;
+                    const zone111Height = zone111BordBas * scale;
+                    // Mise à jour du style de l'overlay pour qu'il recouvre exactement la zone souhaitée
+                    let zone111 = document.querySelector(".zone111");
+                    if (zone111) {
+                        zone111.style.left = zone111Left + 'px';
+                        zone111.style.top = zone111Top + 'px';
+                        zone111.style.width = zone111Width + 'px';
+                        zone111.style.height = zone111Height + 'px';
+                    }
+                    zone111 = document.querySelector(".zone111");
+                            if (zone111) {
+                                zone111BordDroite.style.left = zone111Left + 'px';
+                                zone111.style.top = zone111Top + 'px';
+                                zone111.style.width = zone111Width + 'px';
+                                zone111.style.height = zone111Height + 'px';
+                            }
 
 }
 // print pour s'assurer que le fichier est chargé
