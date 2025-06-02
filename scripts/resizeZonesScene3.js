@@ -123,9 +123,10 @@ document.addEventListener('keydown', function(event) {
       window.location.href = 'https://pageweb-ten.vercel.app/Scene4.html';
     }
   });
-
+/*
 // Affichage des coordonnées de la souris pour le debug
 document.addEventListener('mousemove', function(event) {
     console.log('Position de la souris : X = ' + event.clientX + ', Y = ' + event.clientY +
         " avec une fenêtre de " + window.innerWidth + "x" + window.innerHeight);
 });
+*/
