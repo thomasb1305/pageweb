@@ -283,7 +283,13 @@ function updateZones() {
 // print pour s'assurer que le fichier est chargé
 console.log("resizeZones.js chargé");
 
-
+//vers la page suivante avec la flèche droite
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowRight') {
+      // Redirection vers une autre page (modifie l'URL selon ton besoin)
+      window.location.href = 'https://pageweb-ten.vercel.app/Scene2.html';
+    }
+  });
 
 
 // Mise à jour lors du chargement et redimensionnement

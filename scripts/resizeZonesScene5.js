@@ -101,7 +101,21 @@ function updateZones() {
 console.log("resizeZones.js chargé");
 
 
+//vers la page precedente avec la flèche gauche
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowLeft') {
+      // Redirection vers une autre page (modifie l'URL selon ton besoin)
+      window.location.href = 'https://pageweb-ten.vercel.app/Scene4.html';
+    }
+  });
 
+  //vers la page suivante avec la flèche droite
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowRight') {
+      // Redirection vers une autre page (modifie l'URL selon ton besoin)
+      window.location.href = 'https://pageweb-ten.vercel.app/Scene6.html';
+    }
+  });
 
 // Mise à jour lors du chargement et redimensionnement
 window.addEventListener('load', updateZones);
