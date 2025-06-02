@@ -119,6 +119,7 @@ document.addEventListener('keydown', function(event) {
 document.addEventListener('keydown', function(event) {
     if (event.key === 'ArrowRight') {
       // Redirection vers une autre page (modifie l'URL selon ton besoin)
+      console.log("Flèche droite pressée, redirection vers la scène 4");
       window.location.href = 'https://pageweb-ten.vercel.app/Scene4.html';
     }
   });
