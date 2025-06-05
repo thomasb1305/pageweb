@@ -41,6 +41,32 @@ function showPoint(x, y, parent) {
     }, 1000);
   }
 
+  /*
+  getScaledPosition prend les coordonnées x et y d'un point dans l'image d'origine
+    et les convertit en coordonnées dans l'image redimensionnée pour l'affichage.
+  */
+  function getScaledPosition(x, y) {
+    const containerWidth = window.innerWidth;
+    const containerHeight = window.innerHeight;
+    const imgWidth = 774;   // largeur réelle de l'image
+    const imgHeight = 755;  // hauteur réelle de l'image
+  
+    const scale = Math.min(containerWidth / imgWidth, containerHeight / imgHeight);
+    const displayWidth = imgWidth * scale;
+    const displayHeight = imgHeight * scale;
+    const offsetX = (containerWidth - displayWidth) / 2;
+    const offsetY = (containerHeight - displayHeight) / 2;
+  
+    return {
+      x: x * scale + offsetX,
+      y: y * scale + offsetY
+    };
+  }
+
+  /*
+    updateZones est la fonction principale qui redimensionne les zones
+    et les positionne correctement en fonction de la taille de la fenêtre.
+  */
 function updateZones() {
     // Utiliser les dimensions détectées, sinon des valeurs par défaut (à ajuster si besoin)
     let imageWidth, imageHeight;
@@ -67,54 +93,66 @@ function updateZones() {
     const offsetX = (containerWidth - displayWidth) / 2;
     const offsetY = (containerHeight - displayHeight) / 2;
     
-//PREMIERE ZONE (ROUGE)
-    // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
-    const zone1BordGauche = 165;   // px depuis le bord gauche de l'image
-    const zone1BordHaut = 280;    // px depuis le haut de l'image
-    const zone1BordDroite = 220;  // Largeur de la zone en pixels
-    const zone1BordBas = 365; // Hauteur de la zone en pixels
-    // Calcul des coordonnées et dimensions de la zone dans l'affichage redimensionné
-    const zone1Left = offsetX + zone1BordGauche * scale;
-    const zone1Top = offsetY + zone1BordHaut * scale;
-    const zone1Width = zone1BordDroite * scale;
-    const zone1Height = zone1BordBas * scale;
-    // Mise à jour du style de l'overlay pour qu'il recouvre exactement la zone souhaitée
-    let zone1 = document.querySelector(".zone1");
-    if (zone1) {
-        zone1.style.left = zone1Left + 'px';
-        zone1.style.top = zone1Top + 'px';
-        zone1.style.width = zone1Width + 'px';
-        zone1.style.height = zone1Height + 'px';
-    }
-    //recupération des bords de la zone1:
-    // Charger les points depuis un fichier .txt
-        fetch('./Scene1_contours/chateau/chateau_contours.txt')
-.       then(response => response.text())
-.       then(text => {
-            console.log("pts z1 ok");
-            points = text.trim().split('\n').map(line => {
-                const [x, y] = line.split(',').map(Number);
-                return { x, y };
-            });
-        });
-//
-        document.querySelector('.zone1').addEventListener('click', () => {
-            const zone = document.querySelector('.zone1');
-        
-            let i = 0;
-            const interval = setInterval(() => {
-              if (i >= points.length) {
-                clearInterval(interval);
-                return;
-              }
-        
-              const scaled = getScaledPosition(points[i].x, points[i].y);
-              showPoint(scaled.x, scaled.y, zone);
-        
-              i++;
-            }, 500);
-          });
 
+/*
+Dans la suite du code, nous allons définir les zones d'interaction en fonction de leur coordonnées dans l'image, en brute.
+Ces coordonnées sont basées sur l'image d'origine, et nous allons les adapter à l'échelle actuelle de l'image affichée.
+Ensuite, pour chaque image, nous allons récupérer les points des contours de l'objet, puis nous ajoutons une fonction qui permettra de cliquer
+ sur la zone et d'afficher un par un les points du bord.
+*/ 
+
+
+/*
+Première zone : le chateau
+*/
+    //Placement de la zone en brut par rapport à l'image de fond
+        // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
+        const zone1BordGauche = 165;   // px depuis le bord gauche de l'image
+        const zone1BordHaut = 280;    // px depuis le haut de l'image
+        const zone1BordDroite = 220;  // Largeur de la zone en pixels
+        const zone1BordBas = 365; // Hauteur de la zone en pixels
+        // Calcul des coordonnées et dimensions de la zone dans l'affichage redimensionné
+        const zone1Left = offsetX + zone1BordGauche * scale;
+        const zone1Top = offsetY + zone1BordHaut * scale;
+        const zone1Width = zone1BordDroite * scale;
+        const zone1Height = zone1BordBas * scale;
+        // Mise à jour du style de l'overlay pour qu'il recouvre exactement la zone souhaitée
+        let zone1 = document.querySelector(".zone1");
+        if (zone1) {
+            zone1.style.left = zone1Left + 'px';
+            zone1.style.top = zone1Top + 'px';
+            zone1.style.width = zone1Width + 'px';
+            zone1.style.height = zone1Height + 'px';
+        }
+
+    //recupération des coordonnées du contour de l'objet principal de la zone1 (le chateau):
+        // Charger les points depuis un fichier .txt
+            fetch('./Scene1_contours/chateau/chateau_contours.txt')
+    .       then(response => response.text())
+    .       then(text => {
+                console.log("pts z1 ok");
+                points = text.trim().split('\n').map(line => {
+                    const [x, y] = line.split(',').map(Number);
+                    return { x, y };
+                });
+            });
+    //Maintenant, nous allons ajouter un écouteur d'événement pour afficher les points un par un lorsque l'utilisateur clique sur la zone1.
+            document.querySelector('.zone1').addEventListener('click', () => {
+                const zone = document.querySelector('.zone1');
+            
+                let i = 0;
+                const interval = setInterval(() => {
+                if (i >= points.length) {
+                    clearInterval(interval);
+                    return;
+                }
+            
+                const scaled = getScaledPosition(points[i].x, points[i].y);
+                showPoint(scaled.x, scaled.y, zone);
+            
+                i++;
+                }, 500);
+            });
     
         //sous zone 1.1 (chapiteau de gauche)
             // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
