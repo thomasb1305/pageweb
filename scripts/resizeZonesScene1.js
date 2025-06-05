@@ -46,23 +46,22 @@ function showPoint(x, y, parent) {
   getScaledPosition prend les coordonnées x et y d'un point dans l'image d'origine
     et les convertit en coordonnées dans l'image redimensionnée pour l'affichage.
   */
-  function getScaledPosition(x, y) {
-    const containerWidth = window.innerWidth;
-    const containerHeight = window.innerHeight;
-    const imgWidth = 774;   // largeur réelle de l'image
-    const imgHeight = 755;  // hauteur réelle de l'image
-  
-    const scale = Math.min(containerWidth / imgWidth, containerHeight / imgHeight);
-    const displayWidth = imgWidth * scale;
-    const displayHeight = imgHeight * scale;
-    const offsetX = (containerWidth - displayWidth) / 2;
-    const offsetY = (containerHeight - displayHeight) / 2;
-  
-    return {
-      x: x * scale + offsetX,
-      y: y * scale + offsetY
-    };
-  }
+    function getScaledPosition(x, y) {
+        const imageWidth = 774;
+        const imageHeight = 755;
+      
+        const zone = document.querySelector('.zone1');
+        const zoneWidth = zone.clientWidth;
+        const zoneHeight = zone.clientHeight;
+      
+        const scaleX = zoneWidth / imageWidth;
+        const scaleY = zoneHeight / imageHeight;
+      
+        return {
+          x: x * scaleX,
+          y: y * scaleY
+        };
+      }
 
   /*
     updateZones est la fonction principale qui redimensionne les zones
