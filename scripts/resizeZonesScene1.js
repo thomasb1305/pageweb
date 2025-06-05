@@ -46,18 +46,15 @@ function showPoint(x, y, parent) {
   getScaledPosition prend les coordonnées x et y d'un point dans l'image d'origine
     et les convertit en coordonnées dans l'image redimensionnée pour l'affichage.
   */
-    function getScaledPosition(x, y) {
-        const originalWidth = 774;
-        const originalHeight = 755;
-      
+    function getScaledPosition(x, y,imgWidth, imgHeight) {      
         const zone = document.querySelector('.zone1');
       
         const zoneRect = zone.getBoundingClientRect(); // position et taille réelles affichées
         const zoneWidth = zoneRect.width;
         const zoneHeight = zoneRect.height;
       
-        const scaleX = zoneWidth / originalWidth;
-        const scaleY = zoneHeight / originalHeight;
+        const scaleX = zoneWidth / imgWidth;
+        const scaleY = zoneHeight / imgHeight;
       
         return {
           x: x * scaleX,
@@ -150,7 +147,7 @@ Première zone : le chateau
             return;
           }
       
-          const local = getScaledPosition(points[i].x, points[i].y); // coordonnées locales à .zone1
+          const local = getScaledPosition(points[i].x, points[i].y,230,370); // coordonnées locales à .zone1
           showPoint(local.x, local.y, zone); // pas de rect.left à soustraire ici
       
           i++;
