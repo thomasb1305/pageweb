@@ -30,11 +30,11 @@ function showPoint(x, y, parent) {
     point.style.left = `${x}px`;
     point.style.top = `${y}px`;
     parent.appendChild(point);
-    // Fade in
-    requestAnimationFrame(() => {
-      point.style.opacity = '1';
-    });
-    // Supprimer après 1s
+  
+    // Apparition
+    requestAnimationFrame(() => point.style.opacity = '1');
+  
+    // Disparition après 1 seconde
     setTimeout(() => {
       point.style.opacity = '0';
       setTimeout(() => point.remove(), 300);
