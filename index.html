@@ -4,6 +4,8 @@
         <!--<button id="previousZone">Zone Précédente</button>-->
         <div class="zone1">
             Un grand chateau avec deux tours et un grand chapiteau au milieu.
+            <!-- ajout de l'image contourée du chateau -->
+            <img class="img_zone1"  src="Scene1_contours/chateau/chateau_contours.jpg">
             <!-- Zone 1 -->
             <p class="zone11">
                 <!-- Zone1.1-->
@@ -74,6 +76,14 @@
         }
         div{
             font-size: 65%;/*la taille des textes est adapté à la taille de chaque zone */
+        }
+        .img_zone1 {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;    /* ajuste l'image sans déformation, en recouvrant toute la zone */
+            display: block;
+            opacity: 0.4; /* rend l'image légèrement transparente pour pouvoir la placer correctement*/
+            transform: translateY(-30px); /* monte l'image de 30px paske elle etait trop basse, surement à ause du texte */
         }
         /* Style pour toutes les zones */
          .zone1, .zone11, .zone12, .zone13, .zone14, .zone141, .zone142, .zone2,  .zone21, .zone211, .zone212 {

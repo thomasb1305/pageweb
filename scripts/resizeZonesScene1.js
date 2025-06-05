@@ -281,7 +281,7 @@ function updateZones() {
 
 }
 // print pour s'assurer que le fichier est chargé
-console.log("resizeZones.js chargé");
+console.log("resizeZonesScene1.js chargé");
 
 //vers la page suivante avec la flèche droite
 document.addEventListener('keydown', function(event) {
@@ -299,7 +299,7 @@ window.addEventListener('resize', updateZones);
 
 
 // Affichage des coordonnées de la souris pour le debug
-document.addEventListener('mousemove', function(event) {
-    console.log('Position de la souris : X = ' + event.clientX + ', Y = ' + event.clientY +
-        " avec une fenêtre de " + window.innerWidth + "x" + window.innerHeight);
-});
+//document.addEventListener('mousemove', function(event) {
+//    console.log('Position de la souris : X = ' + event.clientX + ', Y = ' + event.clientY +
+//        " avec une fenêtre de " + window.innerWidth + "x" + window.innerHeight);
+//});
