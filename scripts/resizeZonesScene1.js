@@ -139,22 +139,25 @@ Première zone : le chateau
                 });
             });
     //Maintenant, nous allons ajouter un écouteur d'événement pour afficher les points un par un lorsque l'utilisateur clique sur la zone1.
-            document.querySelector('.zone1').addEventListener('click', () => {
-                console.log("zone1 clicked");
-                const zone = document.querySelector('.zone1');
-                let i = 0;
-                const interval = setInterval(() => {
-                if (i >= points.length) {
-                    clearInterval(interval);
-                    return;
-                }
-            
-                const scaled = getScaledPosition(points[i].x, points[i].y);
-                showPoint(scaled.x, scaled.y, document.body);
-            
-                i++;
-                }, 50);
-            });
+        document.querySelector('.zone1').addEventListener('click', () => {
+            const zone = document.querySelector('.zone1');
+            const rect = zone.getBoundingClientRect();
+        
+            let i = 0;
+            const interval = setInterval(() => {
+            if (i >= points.length) {
+                clearInterval(interval);
+                return;
+            }
+        
+            const scaled = getScaledPosition(points[i].x, points[i].y);
+            const localX = scaled.x - rect.left;
+            const localY = scaled.y - rect.top;
+        
+            showPoint(localX, localY, zone);
+            i++;
+            }, 500);
+        });
     
         //sous zone 1.1 (chapiteau de gauche)
             // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
