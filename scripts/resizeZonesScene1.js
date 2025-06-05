@@ -25,6 +25,7 @@ if (imageUrl) {
 }
 
 function showPoint(x, y, parent) {
+    console.log(`→ Affichage point à ${x}px, ${y}px`);
     const point = document.createElement('div');
     point.className = 'point';
     point.style.left = `${x}px`;
