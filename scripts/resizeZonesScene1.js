@@ -92,7 +92,6 @@ function updateZones() {
 .       then(response => response.text())
 .       then(text => {
             console.log("pts z1 ok");
-            console.log(text);
             points = text.trim().split('\n').map(line => {
                 const [x, y] = line.split(',').map(Number);
                 return { x, y };
