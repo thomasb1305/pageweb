@@ -138,8 +138,8 @@ Première zone : le chateau
             });
     //Maintenant, nous allons ajouter un écouteur d'événement pour afficher les points un par un lorsque l'utilisateur clique sur la zone1.
             document.querySelector('.zone1').addEventListener('click', () => {
+                console.log("zone1 clicked");
                 const zone = document.querySelector('.zone1');
-            
                 let i = 0;
                 const interval = setInterval(() => {
                 if (i >= points.length) {
