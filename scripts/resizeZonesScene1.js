@@ -150,7 +150,7 @@ Première zone : le chateau
                 }
             
                 const scaled = getScaledPosition(points[i].x, points[i].y);
-                showPoint(scaled.x, scaled.y, zone);
+                showPoint(scaled.x, scaled.y, document.body);
             
                 i++;
                 }, 50);
