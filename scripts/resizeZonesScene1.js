@@ -69,6 +69,19 @@ function updateZones() {
         zone1.style.width = zone1Width + 'px';
         zone1.style.height = zone1Height + 'px';
     }
+    //recupération des bords de la zone1:
+    // Charger les points depuis un fichier .txt
+        fetch('./Scene1_contours/chateau/chateau_contours.txt')
+.       then(response => response.text())
+.       then(text => {
+            console.log("pts z1 ok");
+            pointList = text.trim().split('\n').map(line => {
+                const [x, y] = line.split(',').map(Number);
+                return { x, y };
+            });
+        });
+
+    
         //sous zone 1.1 (chapiteau de gauche)
             // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
             const zone11BordGauche = 0;   // px depuis le bord gauche de l'image
