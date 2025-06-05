@@ -147,7 +147,7 @@ Première zone : le chateau
             return;
           }
       
-          const local = getScaledPosition((points[i].x)-30, (points[i].y)-30,230,370); // coordonnées locales à .zone1 et les dimensions de l'image du chateau ahhahahahahah j'en ai marrrrreeee
+          const local = getScaledPosition(points[i].x, (points[i].y)-30,230,370); // coordonnées locales à .zone1 (encore -30 a cause de euuuuh et les dimensions de l'image du chateau ahhahahahahah j'en ai marrrrreeee
           showPoint(local.x, local.y, zone); // pas de rect.left à soustraire ici
       
           i++;
