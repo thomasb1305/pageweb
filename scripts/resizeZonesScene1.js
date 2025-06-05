@@ -155,7 +155,7 @@ Première zone : le chateau
         
             showPoint(localX, localY, zone);
             i++;
-            }, 500);
+            }, 5);
         });
     
         //sous zone 1.1 (chapiteau de gauche)
