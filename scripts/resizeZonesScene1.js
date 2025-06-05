@@ -133,8 +133,8 @@ Première zone : le chateau
     .       then(text => {
                 console.log("pts z1 ok");
                 points = text.trim().split('\n').map(line => {
-                    const [x, y] = line.split(',').map(Number);
-                    console.log(`→ ligne: "${line}" → x=${x}, y=${y}`);
+                    const [x, y] = line.split(' ').map(Number);
+                    //console.log(`→ ligne: "${line}" → x=${x}, y=${y}`);
                     return { x, y };
                 });
             });
