@@ -47,15 +47,17 @@ function showPoint(x, y, parent) {
     et les convertit en coordonnées dans l'image redimensionnée pour l'affichage.
   */
     function getScaledPosition(x, y) {
-        const imageWidth = 774;
-        const imageHeight = 755;
+        const originalWidth = 774;
+        const originalHeight = 755;
       
         const zone = document.querySelector('.zone1');
-        const zoneWidth = zone.clientWidth;
-        const zoneHeight = zone.clientHeight;
       
-        const scaleX = zoneWidth / imageWidth;
-        const scaleY = zoneHeight / imageHeight;
+        const zoneRect = zone.getBoundingClientRect(); // position et taille réelles affichées
+        const zoneWidth = zoneRect.width;
+        const zoneHeight = zoneRect.height;
+      
+        const scaleX = zoneWidth / originalWidth;
+        const scaleY = zoneHeight / originalHeight;
       
         return {
           x: x * scaleX,
@@ -138,25 +140,22 @@ Première zone : le chateau
                 });
             });
     //Maintenant, nous allons ajouter un écouteur d'événement pour afficher les points un par un lorsque l'utilisateur clique sur la zone1.
-        document.querySelector('.zone1').addEventListener('click', () => {
-            const zone = document.querySelector('.zone1');
-            const rect = zone.getBoundingClientRect();
-        
-            let i = 0;
-            const interval = setInterval(() => {
-            if (i >= points.length) {
-                clearInterval(interval);
-                return;
-            }
-        
-            const scaled = getScaledPosition(points[i].x, points[i].y);
-            const localX = scaled.x - rect.left;
-            const localY = scaled.y - rect.top;
-        
-            showPoint(localX, localY, zone);
-            i++;
-            }, 5);
-        });
+    document.querySelector('.zone1').addEventListener('click', () => {
+        const zone = document.querySelector('.zone1');
+      
+        let i = 0;
+        const interval = setInterval(() => {
+          if (i >= points.length) {
+            clearInterval(interval);
+            return;
+          }
+      
+          const local = getScaledPosition(points[i].x, points[i].y); // coordonnées locales à .zone1
+          showPoint(local.x, local.y, zone); // pas de rect.left à soustraire ici
+      
+          i++;
+        }, 500);
+      });
     
         //sous zone 1.1 (chapiteau de gauche)
             // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
