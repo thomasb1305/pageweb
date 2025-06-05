@@ -24,6 +24,23 @@ if (imageUrl) {
     console.log("Aucune image de fond trouvée.");
 }
 
+function showPoint(x, y, parent) {
+    const point = document.createElement('div');
+    point.className = 'point';
+    point.style.left = `${x}px`;
+    point.style.top = `${y}px`;
+    parent.appendChild(point);
+    // Fade in
+    requestAnimationFrame(() => {
+      point.style.opacity = '1';
+    });
+    // Supprimer après 1s
+    setTimeout(() => {
+      point.style.opacity = '0';
+      setTimeout(() => point.remove(), 300);
+    }, 1000);
+  }
+
 function updateZones() {
     // Utiliser les dimensions détectées, sinon des valeurs par défaut (à ajuster si besoin)
     let imageWidth, imageHeight;
@@ -80,6 +97,23 @@ function updateZones() {
                 return { x, y };
             });
         });
+//
+        document.querySelector('.zone1').addEventListener('click', () => {
+            const zone = document.querySelector('.zone1');
+        
+            let i = 0;
+            const interval = setInterval(() => {
+              if (i >= points.length) {
+                clearInterval(interval);
+                return;
+              }
+        
+              const scaled = getScaledPosition(points[i].x, points[i].y);
+              showPoint(scaled.x, scaled.y, zone);
+        
+              i++;
+            }, 500);
+          });
 
     
         //sous zone 1.1 (chapiteau de gauche)
