@@ -89,14 +89,27 @@
             z-index: 9999;
             opacity: 1;
         }
-        .img_zone1, .img_zone2 {
+        .img_zone1 {
             width: 100%;
             height: 100%;
+            opacity: 0.2; /* rend l'image légèrement transparente pour pouvoir la placer correctement*/
             object-fit: cover;    /* ajuste l'image sans déformation, en recouvrant toute la zone */
             display: block;
-            opacity: 0.4; /* rend l'image légèrement transparente pour pouvoir la placer correctement*/
+            position: relative;
+            overflow: visible; /* important *opacity: 0.2; /* rend l'image légèrement transparente pour pouvoir la placer correctement*/
             transform: translateY(-30px); /* monte l'image de quelques px paske elle etait trop basse, surement à ause du texte */
         }
+
+        .img_zone2 {
+            position: absolute; /* permet de sortir du flux */
+            top: 0;
+            left: -20px; /* décale vers la gauche */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+        }
+
         /* Style pour toutes les zones */
          .zone1, .zone11, .zone12, .zone13, .zone14, .zone141, .zone142, .zone2,  .zone21, .zone211, .zone212 {
             position: absolute;
