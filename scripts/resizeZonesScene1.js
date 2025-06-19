@@ -130,29 +130,61 @@ Première zone : le chateau
     .       then(response => response.text())
     .       then(text => {
                 console.log("pts z1 ok");
-                points = text.trim().split('\n').map(line => {
+                pointsZ1 = text.trim().split('\n').map(line => {
                     const [x, y] = line.split(' ').map(Number);
                     //console.log(`→ ligne: "${line}" → x=${x}, y=${y}`);
                     return { x, y };
                 });
             });
+
     //Maintenant, nous allons ajouter un écouteur d'événement pour afficher les points un par un lorsque l'utilisateur clique sur la zone1.
     document.querySelector('.zone1').addEventListener('click', () => {
         const zone = document.querySelector('.zone1');
       
         let i = 0;
         const interval = setInterval(() => {
-          if (i >= points.length) {
+          if (i >= pointsZ1.length) {
             clearInterval(interval);
             return;
           }
       
-          const local = getScaledPosition((points[i].x)-3, (points[i].y)-10,230,370); // coordonnées locales à .zone1 (encore -30 a cause de euuuuh et les dimensions de l'image du chateau ahhahahahahah j'en ai marrrrreeee
+          const local = getScaledPosition((pointsZ1[i].x)-3, (pointsZ1[i].y)-10,230,370); // coordonnées locales à .zone1 (encore -30 a cause de euuuuh et les dimensions de l'image du chateau ahhahahahahah j'en ai marrrrreeee
           showPoint(local.x, local.y, zone); // pas de rect.left à soustraire ici
       
           i++;
         }, 10);
       });
+
+      //recupération des coordonnées du contour de l'objet principal de la zone1 (le chateau):
+        // Charger les points depuis un fichier .txt
+        fetch('./Scene1_contours/interieur_chateau/interieur_contours.txt')
+        .       then(response => response.text())
+        .       then(text => {
+                    console.log("pts z2 ok");
+                    pointsZ2 = text.trim().split('\n').map(line => {
+                        const [x, y] = line.split(' ').map(Number);
+                        //console.log(`→ ligne: "${line}" → x=${x}, y=${y}`);
+                        return { x, y };
+                    });
+                });
+    
+        //Maintenant, nous allons ajouter un écouteur d'événement pour afficher les points un par un lorsque l'utilisateur clique sur la zone1.
+        document.querySelector('.zone2').addEventListener('click', () => {
+            const zone = document.querySelector('.zone2');
+          
+            let i = 0;
+            const interval = setInterval(() => {
+              if (i >= pointsZ2.length) {
+                clearInterval(interval);
+                return;
+              }
+          
+              const local = getScaledPosition((pointsZ2[i].x), (pointsZ2[i].y),230,370); // coordonnées locales à .zone1 (encore -30 a cause de euuuuh et les dimensions de l'image du chateau ahhahahahahah j'en ai marrrrreeee
+              showPoint(local.x, local.y, zone); // pas de rect.left à soustraire ici
+          
+              i++;
+            }, 10);
+          });
     
         //sous zone 1.1 (chapiteau de gauche)
             // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
