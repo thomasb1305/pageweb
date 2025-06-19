@@ -116,13 +116,13 @@ document.addEventListener('keydown', function(event) {
   });
 
 
-  //vers la page suivante avec la flèche droite
-document.addEventListener('keydown', function(event) {
-    if (event.key === 'ArrowRight') {
-      // Redirection vers une autre page (modifie l'URL selon ton besoin)
-      window.location.href = 'https://pageweb-ten.vercel.app/Scene38.html';
-    }
-  });
+//  //vers la page suivante avec la flèche droite
+//document.addEventListener('keydown', function(event) {
+//    if (event.key === 'ArrowRight') {
+//      // Redirection vers une autre page (modifie l'URL selon ton besoin)
+//      window.location.href = 'https://pageweb-ten.vercel.app/Scene38.html';
+//    }
+//  });
 
 // Affichage des coordonnées de la souris pour le debug
 document.addEventListener('mousemove', function(event) {

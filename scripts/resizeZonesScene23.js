@@ -120,7 +120,7 @@ document.addEventListener('keydown', function(event) {
 document.addEventListener('keydown', function(event) {
     if (event.key === 'ArrowRight') {
       // Redirection vers une autre page (modifie l'URL selon ton besoin)
-      window.location.href = 'https://pageweb-ten.vercel.app/Scene23.html';
+      window.location.href = 'https://pageweb-ten.vercel.app/Scene38.html';
     }
   });
 
