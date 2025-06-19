@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        
+        <!-- Boutton pour passer à la suite de la tapisserie -->
+        <!-- Faudra l'ajouter ici quand on aura fait plus que les 8 premieres -->
+
+
+        <!-- Ajout du script qui défini les tailles des divs -->
+        <script src="scripts/resizeZonesScene38.js"></script>
+        
+    </body>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            /* Ajout de l'image comme image de fond, sans répétition et centrée */
+            background: url('images/38.png') no-repeat center center fixed;
+            /* "contain" permet d'avoir l'image qui est toujours entièrement visible peu importe la taille de la fenetre et sans déformation */
+            background-size: contain;
+        }
+        div{
+            font-size: 65%;/*la taille des textes est adapté à la taille de chaque zone */
+        }
+        /* Style pour toutes les zones */
+         .zone1 {
+            position: absolute;
+            box-sizing: border-box; /* Inclut la bordure dans la taille */
+            /*border: 2px dashed red;
+            background-color: rgba(255, 0, 0, 0.1);*/
+        }
+        /* Style pour les tests */
+        .newZone, .zone213{
+            position: absolute;
+            /*border: 2px dashed blue;*/
+            /*background-color: rgba(0, 0, 255, 0.1);*/
+            box-sizing: border-box; /* Inclut la bordure dans la taille */
+        }
+        /* Style pour le bouton  */
+        .nextScene, .previousScene {
+        position: absolute;
+        background-color: rgba(229, 229, 229, 0.381);
+        color: grey;
+        font-size: 120%;
+        border: none;
+        cursor: pointer;
+    }
+
+    
+    </style>
+</html>
