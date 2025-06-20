@@ -40,6 +40,25 @@ function getScaledPosition(x, y,imgWidth, imgHeight) {
     };
   }
 
+  function showPoint(x, y, parent) {
+    console.log(`→ Affichage point à ${x}px, ${y}px`);
+    const point = document.createElement('div');
+    point.className = 'point';
+    point.style.left = `${x}px`;
+    point.style.top = `${y}px`;
+    parent.appendChild(point);
+  
+    // Apparition
+    requestAnimationFrame(() => point.style.opacity = '1');
+  
+    // Disparition après 1 seconde
+    setTimeout(() => {
+      point.style.opacity = '0';
+      setTimeout(() => point.remove(), 300);
+    }, 1000);
+  }
+
+
 function updateZones() {
     // Utiliser les dimensions détectées, sinon des valeurs par défaut (à ajuster si besoin)
     let imageWidth, imageHeight;
