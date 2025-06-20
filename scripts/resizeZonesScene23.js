@@ -178,7 +178,7 @@ function updateZones() {
                 return;
               }
           
-              const local = getScaledPosition((pointsZ2[i].x)-150, (pointsZ2[i].y)-100,531,300);
+              const local = getScaledPosition((pointsZ2[i].x)-150, (pointsZ2[i].y)+100,531,300);
               showPoint(local.x, local.y, zone); // pas de rect.left à soustraire ici
           
               i++;
