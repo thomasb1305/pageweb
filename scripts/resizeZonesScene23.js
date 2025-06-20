@@ -170,7 +170,7 @@ function updateZones() {
                 });
     
         //Maintenant, nous allons ajouter un écouteur d'événement pour afficher les points un par un lorsque l'utilisateur clique sur la zone1.
-        document.querySelector('.zone1').addEventListener('click', () => {
+        document.querySelector('.zone2').addEventListener('click', () => {
             const zone = document.querySelector('.zone2');
           
             let i = 0;
