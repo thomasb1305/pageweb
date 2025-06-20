@@ -155,36 +155,7 @@ Première zone : le chateau
         }, 10);
       });
 
-      //recupération des coordonnées du contour de l'objet principal de la zone1 (le chateau):
-        // Charger les points depuis un fichier .txt
-        fetch('./Scene1_contours/interieur_chateau/interieur_contours.txt')
-        .       then(response => response.text())
-        .       then(text => {
-                    console.log("pts z2 ok");
-                    pointsZ2 = text.trim().split('\n').map(line => {
-                        const [x, y] = line.split(' ').map(Number);
-                        //console.log(`→ ligne: "${line}" → x=${x}, y=${y}`);
-                        return { x, y };
-                    });
-                });
-    
-        //Maintenant, nous allons ajouter un écouteur d'événement pour afficher les points un par un lorsque l'utilisateur clique sur la zone1.
-        document.querySelector('.zone2').addEventListener('click', () => {
-            const zone = document.querySelector('.zone2');
-          
-            let i = 0;
-            const interval = setInterval(() => {
-              if (i >= pointsZ2.length) {
-                clearInterval(interval);
-                return;
-              }
-          
-              const local = getScaledPosition((pointsZ2[i].x)-20, (pointsZ2[i].y),230,370); // coordonnées locales à .zone1 (encore -30 a cause de euuuuh et les dimensions de l'image du chateau ahhahahahahah j'en ai marrrrreeee
-              showPoint(local.x, local.y, zone); // pas de rect.left à soustraire ici
-          
-              i++;
-            }, 10);
-          });
+      
     
         //sous zone 1.1 (chapiteau de gauche)
             // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
@@ -386,6 +357,38 @@ Première zone : le chateau
                     zone213.style.height = zone213Height + 'px';
                 }
 
+//recupération des coordonnées du contour de l'objet principal de la zone1 (le chateau):
+        // Charger les points depuis un fichier .txt
+        fetch('./Scene1_contours/interieur_chateau/interieur_contours.txt')
+        .       then(response => response.text())
+        .       then(text => {
+                    console.log("pts z2 ok");
+                    pointsZ2 = text.trim().split('\n').map(line => {
+                        const [x, y] = line.split(' ').map(Number);
+                        //console.log(`→ ligne: "${line}" → x=${x}, y=${y}`);
+                        return { x, y };
+                    });
+                });
+    
+        //Maintenant, nous allons ajouter un écouteur d'événement pour afficher les points un par un lorsque l'utilisateur clique sur la zone1.
+        document.querySelector('.zone2').addEventListener('click', () => {
+            const zone = document.querySelector('.zone2');
+          
+            let i = 0;
+            const interval = setInterval(() => {
+              if (i >= pointsZ2.length) {
+                clearInterval(interval);
+                return;
+              }
+          
+              const local = getScaledPosition((pointsZ2[i].x)-20, (pointsZ2[i].y),230,370); // coordonnées locales à .zone1 (encore -30 a cause de euuuuh et les dimensions de l'image du chateau ahhahahahahah j'en ai marrrrreeee
+              showPoint(local.x, local.y, zone); // pas de rect.left à soustraire ici
+          
+              i++;
+            }, 10);
+          });
+
+
 //afficher les boutons en gros à droite et à gauch de l'image
     //bouton de gauche pour aller voir la scene suivante
     let nextSceneButton = document.querySelector(".nextScene");
@@ -397,16 +400,16 @@ Première zone : le chateau
     }
 
 }
-// print pour s'assurer que le fichier est chargé
+/*// print pour s'assurer que le fichier est chargé
 console.log("resizeZonesScene1.js chargé");
 
 //vers la page suivante avec la flèche droite
 document.addEventListener('keydown', function(event) {
     if (event.key === 'ArrowRight') {
-      // Redirection vers une autre page (modifie l'URL selon ton besoin)
+      //Redirection vers une autre page (modifie l'URL selon ton besoin)
       window.location.href = 'https://pageweb-ten.vercel.app/Scene2.html';
     }
-  });
+  });*/
 
 
 // Mise à jour lors du chargement et redimensionnement

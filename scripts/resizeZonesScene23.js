@@ -107,7 +107,7 @@ function updateZones() {
 
      //recupération des coordonnées du contour de l'objet principal de la zone1 (le chateau):
         // Charger les points depuis un fichier .txt
-        fetch('Scene23_contours/zone2/coordonnees/zone2_coords.txt')//c'est inversé mais ça marche comme ça donc trkl
+        fetch('Scene23_contours/zone1/coordonnees/zone1_coords.txt')
         .       then(response => response.text())
         .       then(text => {
                     console.log("pts z1 ok");
@@ -117,7 +117,6 @@ function updateZones() {
                         return { x, y };
                     });
                 });
-    
         //Maintenant, nous allons ajouter un écouteur d'événement pour afficher les points un par un lorsque l'utilisateur clique sur la zone1.
         document.querySelector('.zone1').addEventListener('click', () => {
             const zone = document.querySelector('.zone1');
@@ -158,7 +157,7 @@ function updateZones() {
 
     //recupération des coordonnées du contour de l'objet principal de la zone1 (le chateau):
         // Charger les points depuis un fichier .txt
-        fetch('Scene23_contours/zone1/coordonnees/zone1_coords.txt')
+        fetch('Scene23_contours/zone2/coordonnees/zone2_coords.txt')
         .       then(response => response.text())
         .       then(text => {
                     console.log("pts z2 ok");
@@ -168,8 +167,7 @@ function updateZones() {
                         return { x, y };
                     });
                 });
-    
-        //Maintenant, nous allons ajouter un écouteur d'événement pour afficher les points un par un lorsque l'utilisateur clique sur la zone1.
+        //Maintenant, nous allons ajouter un écouteur d'événement pour afficher les points un par un lorsque l'utilisateur clique sur la zone 2.
         document.querySelector('.zone2').addEventListener('click', () => {
             const zone = document.querySelector('.zone2');
           
@@ -180,7 +178,7 @@ function updateZones() {
                 return;
               }
           
-              const local = getScaledPosition((pointsZ2[i].x), (pointsZ2[i].y),531,300); // coordonnées locales à .zone1 (encore -30 a cause de euuuuh et les dimensions de l'image du chateau ahhahahahahah j'en ai marrrrreeee
+              const local = getScaledPosition((pointsZ2[i].x), (pointsZ2[i].y),531,300);
               showPoint(local.x, local.y, zone); // pas de rect.left à soustraire ici
           
               i++;
