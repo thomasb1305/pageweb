@@ -28,8 +28,8 @@ function updateZones() {
     // Utiliser les dimensions détectées, sinon des valeurs par défaut (à ajuster si besoin)
     let imageWidth, imageHeight;
     if (imgWidth === null || imgHeight === null) {
-        imageWidth = 967;
-        imageHeight = 530;
+        imageWidth = 1050;
+        imageHeight = 826;
     } else {
         imageWidth = imgWidth;
         imageHeight = imgHeight;
@@ -52,10 +52,10 @@ function updateZones() {
     
 //PREMIERE ZONE (ROUGE)
     // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
-    const zone1BordGauche = 165;   // px depuis le bord gauche de l'image
-    const zone1BordHaut = 280;    // px depuis le haut de l'image
-    const zone1BordDroite = 220;  // Largeur de la zone en pixels
-    const zone1BordBas = 365; // Hauteur de la zone en pixels
+    const zone1BordGauche = 8;   // px depuis le bord gauche de l'image
+    const zone1BordHaut =310;    // px depuis le haut de l'image
+    const zone1BordDroite = 280;  // Largeur de la zone en pixels
+    const zone1BordBas = 385; // Hauteur de la zone en pixels
     // Calcul des coordonnées et dimensions de la zone dans l'affichage redimensionné
     const zone1Left = offsetX + zone1BordGauche * scale;
     const zone1Top = offsetY + zone1BordHaut * scale;
@@ -69,32 +69,46 @@ function updateZones() {
         zone1.style.width = zone1Width + 'px';
         zone1.style.height = zone1Height + 'px';
     }
-        //sous zone 1.1 (chapiteau de gauche)
-            // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
-            const zone11BordGauche = 0;   // px depuis le bord gauche de l'image
-            const zone11BordHaut = 5;    // px depuis le haut de l'image
-            const zone11BordDroite = 50;  // Largeur de la zone en pixels
-            const zone11BordBas = 45; // Hauteur de la zone en pixels
-            // Calcul des coordonnées et dimensions de la zone dans l'affichage redimensionné
-            const zone11Left = zone11BordGauche * scale;
-            const zone11Top = zone11BordHaut * scale;
-            const zone11Width = zone11BordDroite * scale;
-            const zone11Height = zone11BordBas * scale;
-            // Mise à jour du style de l'overlay pour qu'il recouvre exactement la zone souhaitée
-            let zone11 = document.querySelector(".zone11");
-            if (zone11) {
-                zone11.style.left = zone11Left + 'px';
-                zone11.style.top = zone11Top + 'px';
-                zone11.style.width = zone11Width + 'px';
-                zone11.style.height = zone11Height + 'px';
-            }
-            zone142 = document.querySelector(".zone142");
-                    if (zone142) {
-                        zone142.style.left = zone142Left + 'px';
-                        zone142.style.top = zone142Top + 'px';
-                        zone142.style.width = zone142Width + 'px';
-                        zone142.style.height = zone142Height + 'px';
-                    }
+
+//DEUXIEME ZONE (BLEU)  
+    // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
+    const zone2BordGauche = 289;   // px depuis le bord gauche de l'image
+    const zone2BordHaut =395;    // px depuis le haut de l'image
+    const zone2BordDroite = 531;  // Largeur de la zone en pixels
+    const zone2BordBas = 300; // Hauteur de la zone en pixels
+    // Calcul des coordonnées et dimensions de la zone dans l'affichage redimensionné
+    const zone2Left = offsetX + zone2BordGauche * scale;
+    const zone2Top = offsetY + zone2BordHaut * scale;
+    const zone2Width = zone2BordDroite * scale;
+    const zone2Height = zone2BordBas * scale;
+    // Mise à jour du style de l'overlay pour qu'il recouvre exactement la zone souhaitée
+    let zone2 = document.querySelector(".zone2");
+    if (zone2) {
+        zone2.style.left = zone2Left + 'px';
+        zone2.style.top = zone2Top + 'px';
+        zone2.style.width = zone2Width + 'px';
+        zone2.style.height = zone2Height + 'px';
+    }
+
+//troisIEME ZONE (verte)  
+    // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
+    const zone3BordGauche = 820;   // px depuis le bord gauche de l'image
+    const zone3BordHaut = 310;    // px depuis le haut de l'image
+    const zone3BordDroite = 225;  // Largeur de la zone en pixels
+    const zone3BordBas = 390; // Hauteur de la zone en pixels
+    // Calcul des coordonnées et dimensions de la zone dans l'affichage redimensionné
+    const zone3Left = offsetX + zone3BordGauche * scale;
+    const zone3Top = offsetY + zone3BordHaut * scale;
+    const zone3Width = zone3BordDroite * scale;
+    const zone3Height = zone3BordBas * scale;
+    // Mise à jour du style de l'overlay pour qu'il recouvre exactement la zone souhaitée
+    let zone3 = document.querySelector(".zone3");
+    if (zone3) {
+        zone3.style.left = zone3Left + 'px';
+        zone3.style.top = zone3Top + 'px';
+        zone3.style.width = zone3Width + 'px';
+        zone3.style.height = zone3Height + 'px';
+    }
 
 }
 // print pour s'assurer que le fichier est chargé
