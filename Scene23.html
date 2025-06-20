@@ -46,6 +46,17 @@
         div{
             font-size: 65%;/*la taille des textes est adapté à la taille de chaque zone */
         }
+        /*Sert à afficher les points des contours*/
+        .point {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: red;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            }
         /* Style pour toutes les zones */
          .zone1 {
             position: absolute;
