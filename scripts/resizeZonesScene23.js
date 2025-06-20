@@ -156,6 +156,37 @@ function updateZones() {
         zone2.style.height = zone2Height + 'px';
     }
 
+    //recupération des coordonnées du contour de l'objet principal de la zone1 (le chateau):
+        // Charger les points depuis un fichier .txt
+        fetch('Scene23_contours/zone2/coordonnees/zone2_coords.txt')
+        .       then(response => response.text())
+        .       then(text => {
+                    console.log("pts z1 ok");
+                    pointsZ1 = text.trim().split('\n').map(line => {
+                        const [x, y] = line.split(' ').map(Number);
+                        //console.log(`→ ligne: "${line}" → x=${x}, y=${y}`);
+                        return { x, y };
+                    });
+                });
+    
+        //Maintenant, nous allons ajouter un écouteur d'événement pour afficher les points un par un lorsque l'utilisateur clique sur la zone1.
+        document.querySelector('.zone1').addEventListener('click', () => {
+            const zone = document.querySelector('.zone2');
+          
+            let i = 0;
+            const interval = setInterval(() => {
+              if (i >= pointsZ1.length) {
+                clearInterval(interval);
+                return;
+              }
+          
+              const local = getScaledPosition((pointsZ1[i].x), (pointsZ1[i].y),531,300); // coordonnées locales à .zone1 (encore -30 a cause de euuuuh et les dimensions de l'image du chateau ahhahahahahah j'en ai marrrrreeee
+              showPoint(local.x, local.y, zone); // pas de rect.left à soustraire ici
+          
+              i++;
+            }, 10);
+          });
+
 //troisIEME ZONE (verte)  
     // Définition des coordonnées de base de la zone (en pixels dans l'image d'origine)
     const zone3BordGauche = 820;   // px depuis le bord gauche de l'image
