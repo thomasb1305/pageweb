@@ -107,7 +107,7 @@ function updateZones() {
 
      //recupération des coordonnées du contour de l'objet principal de la zone1 (le chateau):
         // Charger les points depuis un fichier .txt
-        fetch('Scene23_contours/zone2/coordonnees/zone2_coords.txt')
+        fetch('Scene23_contours/zone2/coordonnees/zone2_coords.txt')//c'est inversé mais ça marche comme ça donc trkl
         .       then(response => response.text())
         .       then(text => {
                     console.log("pts z1 ok");
