@@ -54,7 +54,7 @@ function getScaledPosition(x, y,imgWidth, imgHeight) {
     // Disparition après 1 seconde
     setTimeout(() => {
       point.style.opacity = '0';
-      setTimeout(() => point.remove(), 300);
+      setTimeout(() => point.remove(), 1000);
     }, 1000);
   }
 
