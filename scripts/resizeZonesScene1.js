@@ -400,7 +400,7 @@ Première zone : le chateau
     }
 
 }
-/*// print pour s'assurer que le fichier est chargé
+// print pour s'assurer que le fichier est chargé
 console.log("resizeZonesScene1.js chargé");
 
 //vers la page suivante avec la flèche droite
@@ -409,7 +409,7 @@ document.addEventListener('keydown', function(event) {
       //Redirection vers une autre page (modifie l'URL selon ton besoin)
       window.location.href = 'https://pageweb-ten.vercel.app/Scene2.html';
     }
-  });*/
+  });
 
 
 // Mise à jour lors du chargement et redimensionnement
