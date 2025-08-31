@@ -154,77 +154,30 @@
       });
     </script>
         <script>
-            (() => {
-              const EVENTS = ['click','mousedown','mouseup','touchstart','touchend','pointerdown','pointerup'];
-              const blockers = new WeakMap();
-            
-              function isZoneDiv(el) {
-                if (!(el instanceof Element) || el.tagName !== 'DIV') return false;
-                // contient au moins une classe "zone<nombre>" (zone1, zone11, zone141, etc.)
-                return Array.from(el.classList).some(c => /^zone\d+$/i.test(c));
+          (function () {
+            const isZone = el => el && el.classList && [...el.classList].some(c => /^zone\d+$/i.test(c));
+            const isAllowed = el => el.classList.contains('zone-has-overlay');
+          
+            // Bloque click souris/touch
+            document.addEventListener('click', (e) => {
+              const z = e.target.closest('div');
+              if (isZone(z) && !isAllowed(z)) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
               }
-            
-              function shouldKeep(div) {
-                // garder si la div a la classe "zone-has-overlay" (peu importe no-plugin-match)
-                return div.classList.contains('zone-has-overlay');
+            }, true);
+          
+            // Bloque activation clavier (Enter/Space) si la zone est focusable
+            document.addEventListener('keydown', (e) => {
+              if (e.key !== 'Enter' && e.key !== ' ') return;
+              const z = e.target.closest && e.target.closest('div');
+              if (isZone(z) && !isAllowed(z)) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
               }
-            
-              function disable(div) {
-                if (blockers.has(div)) return; // déjà désactivée
-                div.removeAttribute('onclick');
-                const handler = e => { e.stopImmediatePropagation(); e.preventDefault(); };
-                EVENTS.forEach(t => div.addEventListener(t, handler, true));
-                blockers.set(div, handler);
-                div.style.pointerEvents = 'none';
-                div.setAttribute('tabindex','-1');
-                div.setAttribute('is-usable','false'); // force l’état
-                div.classList.add('no-plugin-match');  // marqueur visuel (à garder si tu veux)
-              }
-            
-              function enable(div) {
-                const handler = blockers.get(div);
-                if (handler) {
-                  EVENTS.forEach(t => div.removeEventListener(t, handler, true));
-                  blockers.delete(div);
-                }
-                // réactive les interactions
-                div.style.pointerEvents = '';
-                // si tu veux conserver le focus clavier : retire la ligne suivante
-                div.removeAttribute('tabindex');
-                div.setAttribute('is-usable','true');
-                // nettoie l’étiquette debug si présente
-                div.classList.remove('no-plugin-match');
-              }
-            
-              function apply() {
-                document.querySelectorAll('div').forEach(div => {
-                  if (!isZoneDiv(div)) return;
-                  if (shouldKeep(div)) {
-                    enable(div);
-                  } else {
-                    disable(div);
-                  }
-                });
-              }
-            
-              // lance après le passage du plugin (petit délai pour laisser poser les classes)
-              if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => setTimeout(apply, 0));
-              } else {
-                setTimeout(apply, 0);
-              }
-            
-              // (optionnel) si le plugin ajoute la classe plus tard, on peut observer :
-              const obs = new MutationObserver(muts => {
-                for (const m of muts) {
-                  if (m.type === 'attributes' && m.attributeName === 'class' && isZoneDiv(m.target)) {
-                    shouldKeep(m.target) ? enable(m.target) : disable(m.target);
-                  }
-                }
-              });
-              obs.observe(document.documentElement, {subtree:true, attributes:true, attributeFilter:['class']});
-            })();
-            </script>
+            }, true);
+          })();
+          </script>
             
             <style>
             /* debug visuel (optionnel) */
