@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <!-- Script WS : chemin ABSOLU + defer -->
-    <script src="scripts/ws-control.js" defer data-ws="ws://localhost:8080"></script>
+    <script>window.WS_URL = "ws://localhost:8080";</script>
+    <script src="/scripts/ws-control.js" defer></script>
 
     <style>
       html, body {
