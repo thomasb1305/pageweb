@@ -155,70 +155,59 @@
     </script>
         <script>
             (function () {
-              function isZoneDiv(el) {
-                if (!(el instanceof Element)) return false;
-                const cls = (el.getAttribute('class') || '').split(/\s+/);
-                return cls.some(c => /^zone\d+/i.test(c));
-              }
+              // Détecte si la zone est marquée "has overlay"
+              function hasOverlayMarker(el) {
+                const cls = el.className || "";
+                const list = new Set((cls.split(/\s+/).filter(Boolean)));
             
-              function hasExternalAudioForZone(zoneValue, zoneDiv) {
-                if (!zoneValue) return false;
-                // cherche au moins un <audio zone="..."> qui N'EST PAS contenu dans la div
-                const audios = document.querySelectorAll(`audio[zone="${CSS.escape(zoneValue)}"]`);
-                for (const a of audios) {
-                  if (!zoneDiv.contains(a)) return true;
-                }
+                // cas fréquents possibles
+                if (cls.includes("has overlay")) return true;           // ex: class="zone11 has overlay"
+                if (list.has("has") && list.has("overlay")) return true;
+                if (list.has("has-overlay")) return true;
+                if (list.has("has_overlay")) return true;
+                if (list.has("zone-has-overlay")) return true;
+            
                 return false;
               }
             
+              // Est-ce une div de zone ?
+              function isZoneDiv(el) {
+                if (!(el instanceof Element) || el.tagName !== "DIV") return false;
+                // ex: zone11, zone141, etc.
+                return /\bzone\d+\b/i.test(el.className || "");
+              }
+            
+              // Neutralise tous les clics
               function disableClicks(div) {
-                // supprime l'inline onclick
-                div.removeAttribute('onclick');
-                // bloque tous les events de clic en capture
+                div.removeAttribute("onclick");
                 const blocker = e => { e.stopImmediatePropagation(); e.preventDefault(); };
-                ['click','mousedown','mouseup','touchstart','touchend','pointerdown','pointerup']
-                  .forEach(type => div.addEventListener(type, blocker, true));
-                // coupe les interactions (optionnel)
-                div.style.pointerEvents = 'none';
-                // évite le focus clavier
-                div.setAttribute('tabindex', '-1');
-                // marquage visuel debug (retire en prod si tu veux)
-                div.classList.add('no-plugin-match');
+                ["click","mousedown","mouseup","touchstart","touchend","pointerdown","pointerup"]
+                  .forEach(t => div.addEventListener(t, blocker, true));
+                div.style.pointerEvents = "none";   // commente si tu veux garder les hovers
+                div.setAttribute("tabindex", "-1"); // évite le focus clavier
+                div.classList.add("no-plugin-match"); // debug visuel
               }
             
               function run() {
-                document.querySelectorAll('div').forEach(div => {
+                document.querySelectorAll("div").forEach(div => {
                   if (!isZoneDiv(div)) return;
-            
-                  // priorité : si la div a un attribut zone="..."
-                  let z = div.getAttribute('zone');
-            
-                  // fallback si pas d'attribut 'zone' mais un onclick de type sendWS('s1_z1_1') :
-                  if (!z) {
-                    const oc = div.getAttribute('onclick') || '';
-                    const m = oc.match(/sendWS\(['"]s\d+_z(\d+(?:\|\d+)?)['"]\)/i);
-                    if (m) z = m[1];
-                  }
-            
-                  // Si on n'a pas pu déterminer la zone, on désactive par sécurité
-                  const matched = z ? hasExternalAudioForZone(z, div) : false;
-            
-                  if (!matched) {
+                  if (!hasOverlayMarker(div)) {
                     disableClicks(div);
                   }
                 });
               }
             
-              if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => setTimeout(run, 0));
+              if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", () => setTimeout(run, 0));
               } else {
                 setTimeout(run, 0);
               }
             })();
             </script>
-        <style>
-        /* Optionnel : repérage visuel des zones neutralisées */
-        .no-plugin-match { outline: 2px dashed rgba(255,0,0,.4); }
-        </style>
+            
+            <style>
+            /* optionnel pour repérer vite ce qui est désactivé */
+            .no-plugin-match { outline: 2px dashed rgba(255,0,0,.35); }
+            </style>
   </body>
 </html>
