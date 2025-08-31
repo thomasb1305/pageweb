@@ -154,60 +154,82 @@
       });
     </script>
         <script>
-            (function () {
-              // Détecte si la zone est marquée "has overlay"
-              function hasOverlayMarker(el) {
-                const cls = el.className || "";
-                const list = new Set((cls.split(/\s+/).filter(Boolean)));
+            (() => {
+              const EVENTS = ['click','mousedown','mouseup','touchstart','touchend','pointerdown','pointerup'];
+              const blockers = new WeakMap();
             
-                // cas fréquents possibles
-                if (cls.includes("has overlay")) return true;           // ex: class="zone11 has overlay"
-                if (list.has("has") && list.has("overlay")) return true;
-                if (list.has("has-overlay")) return true;
-                if (list.has("has_overlay")) return true;
-                if (list.has("zone-has-overlay")) return true;
-            
-                return false;
-              }
-            
-              // Est-ce une div de zone ?
               function isZoneDiv(el) {
-                if (!(el instanceof Element) || el.tagName !== "DIV") return false;
-                // ex: zone11, zone141, etc.
-                return /\bzone\d+\b/i.test(el.className || "");
+                if (!(el instanceof Element) || el.tagName !== 'DIV') return false;
+                // contient au moins une classe "zone<nombre>" (zone1, zone11, zone141, etc.)
+                return Array.from(el.classList).some(c => /^zone\d+$/i.test(c));
               }
             
-              // Neutralise tous les clics
-              function disableClicks(div) {
-                div.removeAttribute("onclick");
-                const blocker = e => { e.stopImmediatePropagation(); e.preventDefault(); };
-                ["click","mousedown","mouseup","touchstart","touchend","pointerdown","pointerup"]
-                  .forEach(t => div.addEventListener(t, blocker, true));
-                div.style.pointerEvents = "none";   // commente si tu veux garder les hovers
-                div.setAttribute("tabindex", "-1"); // évite le focus clavier
-                div.classList.add("no-plugin-match"); // debug visuel
+              function shouldKeep(div) {
+                // garder si la div a la classe "zone-has-overlay" (peu importe no-plugin-match)
+                return div.classList.contains('zone-has-overlay');
               }
             
-              function run() {
-                document.querySelectorAll("div").forEach(div => {
+              function disable(div) {
+                if (blockers.has(div)) return; // déjà désactivée
+                div.removeAttribute('onclick');
+                const handler = e => { e.stopImmediatePropagation(); e.preventDefault(); };
+                EVENTS.forEach(t => div.addEventListener(t, handler, true));
+                blockers.set(div, handler);
+                div.style.pointerEvents = 'none';
+                div.setAttribute('tabindex','-1');
+                div.setAttribute('is-usable','false'); // force l’état
+                div.classList.add('no-plugin-match');  // marqueur visuel (à garder si tu veux)
+              }
+            
+              function enable(div) {
+                const handler = blockers.get(div);
+                if (handler) {
+                  EVENTS.forEach(t => div.removeEventListener(t, handler, true));
+                  blockers.delete(div);
+                }
+                // réactive les interactions
+                div.style.pointerEvents = '';
+                // si tu veux conserver le focus clavier : retire la ligne suivante
+                div.removeAttribute('tabindex');
+                div.setAttribute('is-usable','true');
+                // nettoie l’étiquette debug si présente
+                div.classList.remove('no-plugin-match');
+              }
+            
+              function apply() {
+                document.querySelectorAll('div').forEach(div => {
                   if (!isZoneDiv(div)) return;
-                  if (!hasOverlayMarker(div)) {
-                    disableClicks(div);
+                  if (shouldKeep(div)) {
+                    enable(div);
+                  } else {
+                    disable(div);
                   }
                 });
               }
             
-              if (document.readyState === "loading") {
-                document.addEventListener("DOMContentLoaded", () => setTimeout(run, 0));
+              // lance après le passage du plugin (petit délai pour laisser poser les classes)
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => setTimeout(apply, 0));
               } else {
-                setTimeout(run, 0);
+                setTimeout(apply, 0);
               }
+            
+              // (optionnel) si le plugin ajoute la classe plus tard, on peut observer :
+              const obs = new MutationObserver(muts => {
+                for (const m of muts) {
+                  if (m.type === 'attributes' && m.attributeName === 'class' && isZoneDiv(m.target)) {
+                    shouldKeep(m.target) ? enable(m.target) : disable(m.target);
+                  }
+                }
+              });
+              obs.observe(document.documentElement, {subtree:true, attributes:true, attributeFilter:['class']});
             })();
             </script>
             
             <style>
-            /* optionnel pour repérer vite ce qui est désactivé */
+            /* debug visuel (optionnel) */
             .no-plugin-match { outline: 2px dashed rgba(255,0,0,.35); }
             </style>
+            
   </body>
 </html>
