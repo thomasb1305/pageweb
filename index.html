@@ -181,14 +181,12 @@
           <script>
             document.addEventListener("click", (e) => {
               const zone = e.target.closest("div[class^='zone'], div[class*=' zone']");
-              if (!zone) return;
-            
-              // Si la zone n'a PAS "zone-has-overlay", on empêche l'exécution de l'onclick
-              if (!zone.classList.contains("zone-has-overlay")) {
-                e.preventDefault();
-                e.stopImmediatePropagation(); // bloque aussi les onclick inline et autres handlers
+              if (zone && zone.classList.contains("zone-has-overlay")) {
+                // Empêcher que le clic descende à une autre zone dessous
+                e.stopPropagation();
+                e.stopImmediatePropagation();
               }
-            }, true); // capture = true → on passe AVANT les onclick inline
+            }, true);
             </script>
           <style>
             /* Bloquer clics sur toutes les zones sans overlay */
