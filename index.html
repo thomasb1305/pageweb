@@ -153,6 +153,69 @@
         console.log('sendWS =', typeof window.sendWS);
       });
     </script>
+        <script>
+            (function () {
+              function isZoneDiv(el) {
+                if (!(el instanceof Element)) return false;
+                const cls = (el.getAttribute('class') || '').split(/\s+/);
+                return cls.some(c => /^zone\d+/i.test(c));
+              }
+            
+              function hasExternalAudioForZone(zoneValue, zoneDiv) {
+                if (!zoneValue) return false;
+                // cherche au moins un <audio zone="..."> qui N'EST PAS contenu dans la div
+                const audios = document.querySelectorAll(`audio[zone="${CSS.escape(zoneValue)}"]`);
+                for (const a of audios) {
+                  if (!zoneDiv.contains(a)) return true;
+                }
+                return false;
+              }
+            
+              function disableClicks(div) {
+                // supprime l'inline onclick
+                div.removeAttribute('onclick');
+                // bloque tous les events de clic en capture
+                const blocker = e => { e.stopImmediatePropagation(); e.preventDefault(); };
+                ['click','mousedown','mouseup','touchstart','touchend','pointerdown','pointerup']
+                  .forEach(type => div.addEventListener(type, blocker, true));
+                // coupe les interactions (optionnel)
+                div.style.pointerEvents = 'none';
+                // évite le focus clavier
+                div.setAttribute('tabindex', '-1');
+                // marquage visuel debug (retire en prod si tu veux)
+                div.classList.add('no-plugin-match');
+              }
+            
+              function run() {
+                document.querySelectorAll('div').forEach(div => {
+                  if (!isZoneDiv(div)) return;
+            
+                  // priorité : si la div a un attribut zone="..."
+                  let z = div.getAttribute('zone');
+            
+                  // fallback si pas d'attribut 'zone' mais un onclick de type sendWS('s1_z1_1') :
+                  if (!z) {
+                    const oc = div.getAttribute('onclick') || '';
+                    const m = oc.match(/sendWS\(['"]s\d+_z(\d+(?:\|\d+)?)['"]\)/i);
+                    if (m) z = m[1];
+                  }
+            
+                  // Si on n'a pas pu déterminer la zone, on désactive par sécurité
+                  const matched = z ? hasExternalAudioForZone(z, div) : false;
+            
+                  if (!matched) {
+                    disableClicks(div);
+                  }
+                });
+              }
+            
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => setTimeout(run, 0));
+              } else {
+                setTimeout(run, 0);
+              }
+            })();
+            </script>
         <style>
         /* Optionnel : repérage visuel des zones neutralisées */
         .no-plugin-match { outline: 2px dashed rgba(255,0,0,.4); }
