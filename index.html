@@ -1,59 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <script src="scripts/ws-control.js" defer ></script>
+    </head>
     <body>
+       
         <!--<button id="previousZone">Zone Précédente</button>-->
-        <div class="zone1">
-            Un grand chateau avec deux tours et un grand chapiteau au milieu.
+        <div class="zone1" onclick="sendWS('s1_z1')">
+
+            A castle with two towers.
             <!-- ajout de l'image contourée du chateau -->
-            <!--<img class="img_zone1"  src="Scene1_contours/chateau/chateau_contours.jpg">-->
+            
             <!-- Zone 1 -->
-            <p class="zone11">
+            <p class="zone11" onclick="sendWS('s1_z1_1')">
                 <!-- Zone1.1-->
-                 chapiteau de gauche du chateau.
+                 Castle's left tower
             </p>
-            <div class="zone12">
+            <div class="zone12" onclick="sendWS('s1_z1_2')">
                 <!-- Zone1.2-->
-                 chapiteau central du chateau, plus grand que les autres.
-            </div>
-            <div class="zone13">
+                 Castle's right tower
+            <div class="zone13" onclick="sendWS('s1_z1_3')">
                 <!-- Zone1.3-->
-                 chapiteau de droite du chateau.
+                 The conical roof of the castle
             </div>
-            <div  class="zone14">
+            <div  class="zone14" onclick="sendWS('s1_z1_4')">
                 <!-- Zone1.4-->
-                Mur du chateau, avec une fenêtre en son centre orné de décorations.
-                <div class="zone141">
+                The front wall of the castle, with a decorated window 
+                <div class="zone141" onclick="sendWS('s1_z1_4_1')">
                     <!-- Zone1.4.1-->
-                    Fenêtre du chateau.
+                    Castle's window
                 </div>
                 <div class="zone142">
                     <!-- Zone1.4.2-->
-                    Trois petites fenêtres
+                    tree little windows
                 </div>
             </div>
         </div>
-        <div class="zone2" >
+        <div class="zone2" onclick="sendWS('s1_z2')">
             <!-- Zone2 -->
-             intérieur du chateau, un roi et deux personnes discutent. Le roi est assis sur son trone,
-             les deux autres sont debout devant lui. Le roi est habillé en vert, avec une couronne et un septre.
+             Inside the castle, a king and two people are talking. The king is sitting on his throne, while the other two are standing in front of him. The king is dressed in green, wearing a crown and holding a scepter
              <!-- ajout de l'image contourée du chateau -->
-            <!--<img class="img_zone2"  src="Scene1_contours/interieur_chateau/interieur.jpg">-->
+           
 
-            <div class="zone21">
+            <div class="zone21" onclick="sendWS('s1_z2_1')">
                 <!-- Zone2.1-->
-                 le roi, assis sur son trone en tenant un sceptre dans sa main gauche.
-
-                <div class="zone211">
+                the king, sitting on his throne, holding his septre with his left hand
+                <div class="zone211" onclick="sendWS('s1_z2_1_1')">
                     <!-- Zone2.1.1-->
-                     la couronne du roi, posée sur sa tête.
+                     The king's crown
                 </div>
-                <div class="zone212">
+                <div class="zone212" onclick="sendWS('s1_z2_1_2')">
                     <!-- Zone2.1.2-->
-                     Le sceptre du roi.
+                     The king's sceptre
                 </div>
-                <div class="zone213">
-                    <!-- Zone2.1.2-->
-                     Les pieds du roi, posés sur un repose-pieds en bois.
+                <div class="zone213" onclick="sendWS('s1_z2_1_3')">
+                    <!-- Zone2.1.3-->
+                     
+                     The king's feet, on a foot rest
                 </div>
             </div>
         </div>
@@ -77,7 +80,7 @@
             background-size: contain;
         }
         div{
-            font-size: 0%;/*la taille des textes est adapté à la taille de chaque zone */
+            font-size: 100%;/*la taille des textes est adapté à la taille de chaque zone */
         }
         .point {
             position: absolute;
@@ -114,14 +117,14 @@
          .zone1, .zone11, .zone12, .zone13, .zone14, .zone141, .zone142, .zone2,  .zone21, .zone211, .zone212 {
             position: absolute;
             box-sizing: border-box; /* Inclut la bordure dans la taille */
-            /*border: 2px dashed red;
-            background-color: rgba(255, 0, 0, 0.1);*/
+            border: 2px dashed red;
+            background-color: rgba(255, 0, 0, 0.1);
         }
         /* Style pour les tests */
         .newZone, .zone213{
             position: absolute;
-            /*border: 2px dashed blue;*/
-            /*background-color: rgba(0, 0, 255, 0.1);*/
+            border: 2px dashed blue;
+            background-color: rgba(0, 0, 255, 0.1);
             box-sizing: border-box; /* Inclut la bordure dans la taille */
         }
         /* Style pour le bouton  */

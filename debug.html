@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Debug WebSocket</title>
+  <style>
+    body { font-family: sans-serif; margin: 1em; }
+    input[type=range] { width: 200px; }
+    #log { border: 1px solid #ccc; padding: 1em; background: #eee; height: 150px; overflow-y: auto; white-space: pre-wrap; }
+  </style>
+  <script src="scripts/ws-control.js" defer ></script>
+</head>
+<body>
+  <h2>🔧 Debug WebSocket</h2>
+
+  <label>jx:</label>
+  <input type="range" min="-1" max="1" step="0.1" oninput="sendWS('jx=' + this.value)"><br>
+
+  <label>jy:</label>
+  <input type="range" min="-1" max="1" step="0.1" oninput="sendWS('jy=' + this.value)"><br><br>
+
+  <input type="text" id="cmd" placeholder="Commande personnalisée">
+  <button onclick="sendWS(document.getElementById('cmd').value)">Envoyer</button><br><br>
+
+  <label>Test chargement d'une image:</label>
+  <button onclick="sendWS('imgBorrowdale_700')">Envoyer</button><br><br>
+
+  <label>Test chargement d'un chemin:</label>
+  <button onclick="sendWS('pat')">Envoyer</button><br><br>
+
+
+  <div id="log"></div>
+
+  
+</body>
+</html>
