@@ -152,5 +152,65 @@
         console.log('sendWS =', typeof window.sendWS);
       });
     </script>
+    <script>
+        (function () {
+          // 1) Helper : détecter si une DIV "zone…" a une correspondance côté plugin
+          function isPluginMatched(div) {
+            // heuristiques robustes vues dans la page "après" :
+            // - is-usable="true"
+            // - attributs 'zone' et/ou 'zone_coords'
+            // - (optionnel) 'keywords' ajouté par le plugin
+            const usable = div.getAttribute('is-usable');
+            if (usable && usable.toLowerCase() === 'true') return true;
+            if (div.hasAttribute('zone') || div.hasAttribute('zone_coords')) return true;
+            if (div.hasAttribute('keywords')) return true;
+            return false;
+          }
+        
+          // 2) Sélectionner uniquement les DIV dont une classe commence par "zone"
+          function isZoneDiv(el) {
+            if (!(el instanceof Element)) return false;
+            const cls = (el.getAttribute('class') || '').split(/\s+/);
+            return cls.some(c => /^zone\d+/i.test(c));
+          }
+        
+          // 3) Neutraliser les clics d’une DIV (sans casser la page)
+          function disableClicks(div) {
+            // enlève les handlers inline
+            div.removeAttribute('onclick');
+            // empêche tout handler (capture pour passer avant tout le monde)
+            const blocker = e => { e.stopImmediatePropagation(); e.preventDefault(); };
+            ['click','mousedown','mouseup','touchstart','touchend','pointerdown','pointerup']
+              .forEach(type => div.addEventListener(type, blocker, true));
+            // désactive complètement les interactions (optionnel ; commente si tu veux garder le hover)
+            div.style.pointerEvents = 'none';
+            // accessibilité : éviter le focus
+            div.setAttribute('tabindex', '-1');
+            // marquage visuel (debug)
+            div.classList.add('no-plugin-match');
+          }
+        
+          // 4) Appliquer la logique une fois le DOM prêt
+          function run() {
+            document.querySelectorAll('div').forEach(div => {
+              if (isZoneDiv(div) && !isPluginMatched(div)) {
+                disableClicks(div);
+              }
+            });
+          }
+        
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', run);
+          } else {
+            // si le plugin pose ses attributs un peu après, on laisse un micro délai
+            setTimeout(run, 0);
+          }
+        })();
+        </script>
+        
+        <style>
+        /* Optionnel : repérage visuel des zones neutralisées */
+        .no-plugin-match { outline: 2px dashed rgba(255,0,0,.4); }
+        </style>
   </body>
 </html>
