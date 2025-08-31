@@ -153,7 +153,7 @@
         console.log('sendWS =', typeof window.sendWS);
       });
     </script>
-        <script>
+        <!--<<script>
           (function () {
             const isZone = el => el && el.classList && [...el.classList].some(c => /^zone\d+$/i.test(c));
             const isAllowed = el => el.classList.contains('zone-has-overlay');
@@ -177,8 +177,21 @@
               }
             }, true);
           })();
-          </script>
-            
+          </script>-->
+
+            <style>
+              /* Désactive tous les clics sur les zones qui n'ont pas "zone-has-overlay" */
+              div[class^="zone"]:not(.zone-has-overlay),
+              div[class*=" zone"]:not(.zone-has-overlay) {
+                pointer-events: none !important;
+              }
+              
+              /* Réactive explicitement les zones avec overlay */
+              div.zone-has-overlay {
+                pointer-events: auto !important;
+              }
+            </style>
+
             <style>
             /* debug visuel (optionnel) */
             .no-plugin-match { outline: 2px dashed rgba(255,0,0,.35); }
