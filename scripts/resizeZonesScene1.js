@@ -357,6 +357,7 @@ Première zone : le chateau
                     zone213.style.height = zone213Height + 'px';
                 }
 
+                /** 
 //recupération des coordonnées du contour de l'objet principal de la zone1 (le chateau):
         // Charger les points depuis un fichier .txt
         fetch('./Scene1_contours/interieur_chateau/interieur_contours.txt')
@@ -387,7 +388,7 @@ Première zone : le chateau
               i++;
             }, 10);
           });
-
+**/
 
 //afficher les boutons en gros à droite et à gauch de l'image
     //bouton de gauche pour aller voir la scene suivante
