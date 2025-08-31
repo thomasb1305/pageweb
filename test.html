@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <!-- 1) Charge le contrôleur WS (chemin ABSOLU) -->
+    <script
+      src="/scripts/ws-control.js"
+      defer
+      data-ws="ws://localhost:8080"
+      onload="console.log('[ws-control] onload; sendWS=', typeof window.sendWS)"
+      onerror="console.error('[ws-control] load error')">
+    </script>
+
+    <style>
+      html, body { height:100%; margin:0; padding:0; }
+      body { background:#fafafa; }
+      .zone1, .zone11, .zone12, .zone13, .zone14, .zone141, .zone142,
+      .zone2, .zone21, .zone211, .zone212 {
+        position:absolute; box-sizing:border-box; border:2px dashed red; background:rgba(255,0,0,.1);
+      }
+      .newZone, .zone213 { position:absolute; border:2px dashed blue; background:rgba(0,0,255,.1); box-sizing:border-box; }
+      #log { display:none; }
+      #wsStatus { position:fixed; right:8px; bottom:8px; padding:6px 10px; font:12px system-ui;
+                  background:#eee; border:1px solid #ccc; border-radius:6px; }
+      button.test { position:fixed; left:8px; bottom:8px; }
+    </style>
+
+    <!-- 2) SHIM : si sendWS n’existe pas, on met un placeholder et on log -->
+    <script>
+      (function(){
+        if (typeof window.sendWS !== 'function') {
+          window.sendWS = function(msg){
+            console.warn('[shim] sendWS non prêt; msg mis en attente:', msg);
+            (window.__outboxShim ||= []).push(msg);
+          };
+        }
+        window.addEventListener('load', function(){
+          // Après chargement, si ws-control a défini la vraie sendWS, on flush la file shim
+          if (window.__outboxShim && typeof window.sendWS === 'function' && window.sendWS !== arguments.callee) {
+            const q = window.__outboxShim; delete window.__outboxShim;
+            q.forEach(m => window.sendWS(m));
+          }
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="log"></div>
+    <div id="wsStatus">WS: <span data-state>…</span></div>
+    <button class="test" onclick="sendWS('test_ping')">Envoyer test_ping</button>
+
+    <!-- Ton contenu (exemple minimal) -->
+    <div class="zone1" data-cmd="s1_z1" style="top:40px;left:40px;width:200px;height:80px;">Zone 1 (click)</div>
+    <div class="zone21" data-cmd="s1_z2_1" style="top:140px;left:40px;width:200px;height:80px;">Zone 2.1 (click)</div>
+
+    <!-- 3) Délégation des clics vers sendWS (évite les onclick inline) -->
+    <script>
+      document.addEventListener('click', (ev) => {
+        const el = ev.target.closest('[data-cmd]');
+        if (!el) return;
+        ev.stopPropagation();
+        const cmd = el.getAttribute('data-cmd');
+        try { window.sendWS(cmd); } catch (e) { console.error('sendWS call failed:', e); }
+      });
+    </script>
+
+    <!-- 4) Badge de statut + test WS brut -->
+    <script>
+      const stateEl = document.querySelector('#wsStatus [data-state]');
+      const NAMES = ['CONNECTING','OPEN','CLOSING','CLOSED'];
+
+      function refreshState() {
+        const ws = window.__ws || window.wsControl?.socket;
+        stateEl.textContent = ws ? NAMES[ws.readyState] : (typeof window.sendWS === 'function' ? 'NO SOCKET' : 'NO SCRIPT');
+      }
+      setInterval(refreshState, 500);
+      window.addEventListener('DOMContentLoaded', refreshState);
+
+      // Test brut : si ceci échoue, c'est réseau/protocole, pas ton script
+      (function rawWsTest(){
+        try {
+          const t = new WebSocket('ws://localhost:8080');
+          t.onopen  = () => console.log('[RAW TEST] OPEN');
+          t.onerror = e  => console.log('[RAW TEST] ERROR', e);
+          t.onclose = e  => console.log('[RAW TEST] CLOSE', e.code, e.reason);
+        } catch(e) {
+          console.log('[RAW TEST] exception', e);
+        }
+      })();
+    </script>
+
+    <!-- 5) Ton resize script -->
+    <script src="/scripts/resizeZonesScene1.js" defer></script>
+  </body>
+</html>
