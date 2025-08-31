@@ -1,144 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <script id="ws-script"
-            src="/scripts/ws-control.js"
-            defer
-            data-ws="ws://localhost:8080"></script>
-    </head>
-    <body>
-        <div id="log" style="display:none"></div> <!-- pour afficher les messages de debug, utile pour le dev -->
-        <!--<button id="previousZone">Zone Précédente</button>-->
-        <div class="zone1" onclick="sendWS('s1_z1')">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-            A castle with two towers.
-            <!-- ajout de l'image contourée du chateau -->
-            
-            <!-- Zone 1 -->
-            <p class="zone11" onclick="sendWS('s1_z1_1')">
-                <!-- Zone1.1-->
-                 Castle's left tower
-            </p>
-            <div class="zone12" onclick="sendWS('s1_z1_2')">
-                <!-- Zone1.2-->
-                 Castle's right tower
-            <div class="zone13" onclick="sendWS('s1_z1_3')">
-                <!-- Zone1.3-->
-                 The conical roof of the castle
-            </div>
-            <div  class="zone14" onclick="sendWS('s1_z1_4')">
-                <!-- Zone1.4-->
-                The front wall of the castle, with a decorated window 
-                <div class="zone141" onclick="sendWS('s1_z1_4_1')">
-                    <!-- Zone1.4.1-->
-                    Castle's window
-                </div>
-                <div class="zone142">
-                    <!-- Zone1.4.2-->
-                    tree little windows
-                </div>
-            </div>
-        </div>
-        <div class="zone2" onclick="sendWS('s1_z2')">
-            <!-- Zone2 -->
-             Inside the castle, a king and two people are talking. The king is sitting on his throne, while the other two are standing in front of him. The king is dressed in green, wearing a crown and holding a scepter
-             <!-- ajout de l'image contourée du chateau -->
-           
+    <!-- Script WS : chemin ABSOLU + defer -->
+    <script src="/scripts/ws-control.js" defer data-ws="ws://localhost:8080"></script>
 
-            <div class="zone21" onclick="sendWS('s1_z2_1')">
-                <!-- Zone2.1-->
-                the king, sitting on his throne, holding his septre with his left hand
-                <div class="zone211" onclick="sendWS('s1_z2_1_1')">
-                    <!-- Zone2.1.1-->
-                     The king's crown
-                </div>
-                <div class="zone212" onclick="sendWS('s1_z2_1_2')">
-                    <!-- Zone2.1.2-->
-                     The king's sceptre
-                </div>
-                <div class="zone213" onclick="sendWS('s1_z2_1_3')">
-                    <!-- Zone2.1.3-->
-                     
-                     The king's feet, on a foot rest
-                </div>
-            </div>
-        </div>
-
-      
-
-        <!-- Ajout du script qui défini les tailles des divs -->
-        <script src="scripts/resizeZonesScene1.js"></script>
-        
-    </body>
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            /* Ajout de l'image comme image de fond, sans répétition et centrée */
-            background: url('images/image1_clean.png') no-repeat center center fixed;
-            /* "contain" permet d'avoir l'image qui est toujours entièrement visible peu importe la taille de la fenetre et sans déformation */
-            background-size: contain;
-        }
-        div{
-            font-size: 100%;/*la taille des textes est adapté à la taille de chaque zone */
-        }
-        .point {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background-color: red;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 1;
-        }
-        .img_zone1 {
-            width: 100%;
-            height: 100%;
-            opacity: 0.2; /* rend l'image légèrement transparente pour pouvoir la placer correctement*/
-            object-fit: cover;    /* ajuste l'image sans déformation, en recouvrant toute la zone */
-            display: block;
-            position: relative;
-            overflow: visible; /* important *opacity: 0.2; /* rend l'image légèrement transparente pour pouvoir la placer correctement*/
-            transform: translateY(-30px); /* monte l'image de quelques px paske elle etait trop basse, surement à ause du texte */
-        }
-
-        .img_zone2 {
-            position: absolute; /* permet de sortir du flux */
-            top: 0;
-            left: -20px; /* décale vers la gauche */
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.2;
-        }
-
-        /* Style pour toutes les zones */
-         .zone1, .zone11, .zone12, .zone13, .zone14, .zone141, .zone142, .zone2,  .zone21, .zone211, .zone212 {
-            position: absolute;
-            box-sizing: border-box; /* Inclut la bordure dans la taille */
-            border: 2px dashed red;
-            background-color: rgba(255, 0, 0, 0.1);
-        }
-        /* Style pour les tests */
-        .newZone, .zone213{
-            position: absolute;
-            border: 2px dashed blue;
-            background-color: rgba(0, 0, 255, 0.1);
-            box-sizing: border-box; /* Inclut la bordure dans la taille */
-        }
-        /* Style pour le bouton  */
-        .nextScene {
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        /* image de fond */
+        background: url('/images/image1_clean.png') no-repeat center center fixed;
+        background-size: contain;
+      }
+      div {
+        font-size: 100%;
+      }
+      .point {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background-color: red;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 1;
+      }
+      .img_zone1 {
+        width: 100%;
+        height: 100%;
+        opacity: 0.2;
+        object-fit: cover;
+        display: block;
+        position: relative;
+        overflow: visible;
+        transform: translateY(-30px);
+      }
+      .img_zone2 {
+        position: absolute;
+        top: 0;
+        left: -20px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.2;
+      }
+      /* Styles des zones */
+      .zone1, .zone11, .zone12, .zone13, .zone14, .zone141, .zone142,
+      .zone2, .zone21, .zone211, .zone212 {
+        position: absolute;
+        box-sizing: border-box;
+        border: 2px dashed red;
+        background-color: rgba(255, 0, 0, 0.1);
+      }
+      /* Tests */
+      .newZone, .zone213 {
+        position: absolute;
+        border: 2px dashed blue;
+        background-color: rgba(0, 0, 255, 0.1);
+        box-sizing: border-box;
+      }
+      /* Bouton (si besoin) */
+      .nextScene {
         position: absolute;
         background-color: rgba(229, 229, 229, 0.381);
         color: grey;
         font-size: 120%;
         border: none;
         cursor: pointer;
-    }
-    
+      }
     </style>
+  </head>
+  <body>
+    <!-- zone de log (optionnelle), cachée -->
+    <div id="log" style="display:none"></div>
+
+    <!-- Zone 1 -->
+    <div class="zone1" onclick="sendWS('s1_z1')">
+      A castle with two towers.
+
+      <p class="zone11" onclick="sendWS('s1_z1_1')">
+        <!-- Zone1.1 -->
+        Castle's left tower
+      </p>
+
+      <div class="zone12" onclick="sendWS('s1_z1_2')">
+        <!-- Zone1.2 -->
+        Castle's right tower
+      </div>
+
+      <div class="zone13" onclick="sendWS('s1_z1_3')">
+        <!-- Zone1.3 -->
+        The conical roof of the castle
+      </div>
+
+      <div class="zone14" onclick="sendWS('s1_z1_4')">
+        <!-- Zone1.4 -->
+        The front wall of the castle, with a decorated window
+
+        <div class="zone141" onclick="sendWS('s1_z1_4_1')">
+          <!-- Zone1.4.1 -->
+          Castle's window
+        </div>
+
+        <div class="zone142" onclick="sendWS('s1_z1_4_2')">
+          <!-- Zone1.4.2 -->
+          three little windows
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone 2 -->
+    <div class="zone2" onclick="sendWS('s1_z2')">
+      <!-- Zone2 -->
+      Inside the castle, a king and two people are talking. The king is sitting on his throne,
+      while the other two are standing in front of him. The king is dressed in green,
+      wearing a crown and holding a scepter.
+
+      <div class="zone21" onclick="sendWS('s1_z2_1')">
+        <!-- Zone2.1 -->
+        the king, sitting on his throne, holding his sceptre with his left hand
+
+        <div class="zone211" onclick="sendWS('s1_z2_1_1')">
+          <!-- Zone2.1.1 -->
+          The king's crown
+        </div>
+
+        <div class="zone212" onclick="sendWS('s1_z2_1_2')">
+          <!-- Zone2.1.2 -->
+          The king's sceptre
+        </div>
+
+        <div class="zone213" onclick="sendWS('s1_z2_1_3')">
+          <!-- Zone2.1.3 -->
+          The king's feet, on a foot rest
+        </div>
+      </div>
+    </div>
+
+    <!-- Script de redimensionnement : chemin ABSOLU + defer -->
+    <script src="/scripts/resizeZonesScene1.js" defer></script>
+
+    <!-- Sanity check (optionnel) -->
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        console.log('sendWS =', typeof window.sendWS);
+      });
+    </script>
+  </body>
 </html>
