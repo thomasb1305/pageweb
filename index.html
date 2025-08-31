@@ -179,19 +179,18 @@
           })();
           </script>-->
 
-            <style>
-              /* Désactive tous les clics sur les zones qui n'ont pas "zone-has-overlay" */
-              div[class^="zone"]:not(.zone-has-overlay),
-              div[class*=" zone"]:not(.zone-has-overlay) {
-                pointer-events: none !important;
-              }
-              
-              /* Réactive explicitement les zones avec overlay */
-              div.zone-has-overlay {
-                pointer-events: auto !important;
-              }
+          <style>
+            /* Bloquer clics sur toutes les zones sans overlay */
+            div[class^="zone"]:not(.zone-has-overlay),
+            div[class*=" zone"]:not(.zone-has-overlay) {
+              pointer-events: none !important;
+            }
+            
+            /* Zones reconnues par l’extension restent cliquables */
+            div.zone-has-overlay {
+              pointer-events: auto !important;
+            }
             </style>
-
             <style>
             /* debug visuel (optionnel) */
             .no-plugin-match { outline: 2px dashed rgba(255,0,0,.35); }
