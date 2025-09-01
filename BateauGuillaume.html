@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="scripts/ws-control.js" defer ></script>
+    </head>
+    <body>
+       
+        <!--<button id="previousZone">Zone Précédente</button>-->
+        <div class="zone1" onclick="sendWS('s1_z1')">
+            
+        </div>
+
+      
+
+        <!-- Ajout du script qui défini les tailles des divs -->
+        <script src="scripts/resizeZonesBateauGuillaume.js"></script>
+        
+    </body>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            /* Ajout de l'image comme image de fond, sans répétition et centrée */
+            background: url('images/BateauGuillaume.png') no-repeat center center fixed;
+            /* "contain" permet d'avoir l'image qui est toujours entièrement visible peu importe la taille de la fenetre et sans déformation */
+            background-size: contain;
+        }
+        div{
+            font-size: 2%;/*la taille des textes est adapté à la taille de chaque zone */
+        }
+        .point {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: red;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 1;
+        }
+        .img_zone1 {
+            width: 100%;
+            height: 100%;
+            opacity: 0.2; /* rend l'image légèrement transparente pour pouvoir la placer correctement*/
+            object-fit: cover;    /* ajuste l'image sans déformation, en recouvrant toute la zone */
+            display: block;
+            position: relative;
+            overflow: visible; /* important *opacity: 0.2; /* rend l'image légèrement transparente pour pouvoir la placer correctement*/
+            transform: translateY(-30px); /* monte l'image de quelques px paske elle etait trop basse, surement à ause du texte */
+        }
+
+        .img_zone2 {
+            position: absolute; /* permet de sortir du flux */
+            top: 0;
+            left: -20px; /* décale vers la gauche */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+        }
+
+        /* Style pour toutes les zones */
+         .zone1, .zone11, .zone12, .zone13, .zone14, .zone141, .zone142, .zone2,  .zone21, .zone211, .zone212 {
+            position: absolute;
+            box-sizing: border-box; /* Inclut la bordure dans la taille */
+            /*border: 2px dashed red;
+            background-color: rgba(255, 0, 0, 0.1);*/
+        }
+        /* Style pour les tests */
+        .newZone, .zone213{
+            position: absolute;
+            /*border: 2px dashed blue;*/
+            /*background-color: rgba(0, 0, 255, 0.1);*/
+            box-sizing: border-box; /* Inclut la bordure dans la taille */
+        }
+        /* Style pour le bouton  */
+        .nextScene {
+        position: absolute;
+        background-color: rgba(229, 229, 229, 0.381);
+        color: grey;
+        font-size: 120%;
+        border: none;
+        cursor: pointer;
+    }
+    
+    </style>
+</html>

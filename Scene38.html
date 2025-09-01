@@ -1,14 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <script src="scripts/ws-control.js" defer ></script>
+    </head>
     <body>
-        
-        <!-- Boutton pour passer à la suite de la tapisserie -->
-        <!-- Faudra l'ajouter ici quand on aura fait plus que les 8 premieres -->
+        <div class="zone1" onclick="sendWS('s38_z1')">
+            2 Bateaux à Gauche de la scène
+            <div class="zone11" onclick="sendWS('s38_z1_1')">
+                <!-- Zone1.2-->
+                 
+            </div>
+            <div class="zone12" onclick="sendWS('s38_z1_2')">
+                <!-- Zone1.2-->
+                 
+            </div>
+        </div>
+        <div class="zone2" onclick="sendWS('s38_z2')">
+            Grande flotte principale, de 5 bateaux, avec le bateau de Guillaume à gauche.
+            <!--<div class="zone21" onclick="sendWS('s38_z2_1')">
+            
+                 Petit bateau à gauche pour donner un effet de profondeur
+            </div>-->
 
+            <a class="zone22" onclick="sendWS('sG');window.location.href='BateauGuillaume.html'">Bateau Guillaume</a>
+            
+            <!--<div class="zone22" onclick="sendWS('s38_z2_2')">
+                
+                 Bateau de Guillaume
+                 
+                 div class="zone221" onclick="sendWS('s38_z2_1')">
+              
+                     Petit bateau derrière le bateau de guillaume pour donner un effet de profondeur
+                </div>
+                 <div class="zone222" onclick="sendWS('s38_z2_2_2')">
+                    
+                     Lanterne en haut de la voile, elle montre le chemin au reste de la flotte
+                     
+                </div>
 
+            </div>-->
+            <div class="zone23" onclick="sendWS('s38_z2_3')">
+                <!-- Zone2.3-->
+                 Tous les autres bateaux de la flottes.
+            </div>
+        </div>
         <!-- Ajout du script qui défini les tailles des divs -->
         <script src="scripts/resizeZonesScene38.js"></script>
-        
     </body>
     <style>
         html, body {
@@ -23,20 +60,20 @@
             background-size: contain;
         }
         div{
-            font-size: 65%;/*la taille des textes est adapté à la taille de chaque zone */
+            font-size: 5%; /*la taille des textes est adapté à la taille de chaque zone */
         }
         /* Style pour toutes les zones */
          .zone1 {
             position: absolute;
-            box-sizing: border-box; /* Inclut la bordure dans la taille */
-            /*border: 2px dashed red;
-            background-color: rgba(255, 0, 0, 0.1);*/
+            /*box-sizing: border-box; /* Inclut la bordure dans la taille */
+            /*border: 2px dashed red;*/
+            /*background-color: rgba(255, 0, 0, 0.1);*/
         }
         /* Style pour les tests */
-        .newZone, .zone213{
+        .zone2, .zone21, .zone22, .zone221, .zone222, .zone23{
             position: absolute;
-            /*border: 2px dashed blue;*/
-            /*background-color: rgba(0, 0, 255, 0.1);*/
+            /*border: 2px dashed blue;
+            background-color: rgba(0, 0, 255, 0.1);
             box-sizing: border-box; /* Inclut la bordure dans la taille */
         }
         /* Style pour le bouton  */
