@@ -82,34 +82,34 @@
     <div id="log" style="display:none"></div>
 
     <!-- Zone 1 -->
-    <div class="zone1" onclick="sendWS('s1_z1')">
+    <div class="zone1" onclick="if (!this.classList.contains('zone-has-overlay')) return; event.stopPropagation();sendWS('s1_z1')">
       A castle with two towers.
 
-      <div class="zone11" onclick="sendWS('s1_z1_1')">
+      <div class="zone11" onclick="if (!this.classList.contains('zone-has-overlay')) return; event.stopPropagation();sendWS('s1_z1_1')">
         <!-- Zone1.1 -->
         Castle's left tower
       </div>
 
-      <div class="zone12" onclick="sendWS('s1_z1_2')">
+      <div class="zone12" onclick="if (!this.classList.contains('zone-has-overlay')) return; event.stopPropagation();sendWS('s1_z1_2')">
         <!-- Zone1.2 -->
         Castle's right tower
       </div>
 
-      <div class="zone13" onclick="sendWS('s1_z1_3')">
+      <div class="zone13" onclick="if (!this.classList.contains('zone-has-overlay')) return; event.stopPropagation();sendWS('s1_z1_3')">
         <!-- Zone1.3 -->
         The conical roof of the castle
       </div>
 
-      <div class="zone14" onclick="sendWS('s1_z1_4')">
+      <div class="zone14" onclick="if (!this.classList.contains('zone-has-overlay')) return; event.stopPropagation();sendWS('s1_z1_4')">
         <!-- Zone1.4 -->
         The front wall of the castle, with a decorated window
 
-        <div class="zone141" onclick="sendWS('s1_z1_4_1')">
+        <div class="zone141" onclick="if (!this.classList.contains('zone-has-overlay')) return; event.stopPropagation();sendWS('s1_z1_4_1')">
           <!-- Zone1.4.1 -->
           Castle's window
         </div>
 
-        <div class="zone142" onclick="sendWS('s1_z1_4_2')">
+        <div class="zone142" onclick="if (!this.classList.contains('zone-has-overlay')) return; event.stopPropagation();sendWS('s1_z1_4_2')">
           <!-- Zone1.4.2 -->
           three little windows
         </div>
@@ -117,27 +117,27 @@
     </div>
 
     <!-- Zone 2 -->
-    <div class="zone2" onclick="sendWS('s1_z2')">
+    <div class="zone2" onclick="if (!this.classList.contains('zone-has-overlay')) return; event.stopPropagation();sendWS('s1_z2')">
       <!-- Zone2 -->
       Inside the castle, a king and two people are talking. The king is sitting on his throne,
       while the other two are standing in front of him. The king is dressed in green,
       wearing a crown and holding a scepter.
 
-      <div class="zone21" onclick="sendWS('s1_z2_1')">
+      <div class="zone21" onclick="if (!this.classList.contains('zone-has-overlay')) return; event.stopPropagation();sendWS('s1_z2_1')">
         <!-- Zone2.1 -->
         the king, sitting on his throne, holding his sceptre with his left hand
 
-        <div class="zone211" onclick="sendWS('s1_z2_1_1')">
+        <div class="zone211" onclick="if (!this.classList.contains('zone-has-overlay')) return; event.stopPropagation();sendWS('s1_z2_1_1')">
           <!-- Zone2.1.1 -->
           The king's crown
         </div>
 
-        <div class="zone212" onclick="sendWS('s1_z2_1_2')">
+        <div class="zone212" onclick="if (!this.classList.contains('zone-has-overlay')) return; event.stopPropagation();sendWS('s1_z2_1_2')">
           <!-- Zone2.1.2 -->
           The king's sceptre
         </div>
 
-        <div class="zone213" onclick="sendWS('s1_z2_1_3')">
+        <div class="zone213" onclick="if (!this.classList.contains('zone-has-overlay')) return; event.stopPropagation();sendWS('s1_z2_1_3')">
           <!-- Zone2.1.3 -->
           The king's feet, on a foot rest
         </div>
@@ -153,41 +153,6 @@
         console.log('sendWS =', typeof window.sendWS);
       });
     </script>
-        <!--<<script>
-          (function () {
-            const isZone = el => el && el.classList && [...el.classList].some(c => /^zone\d+$/i.test(c));
-            const isAllowed = el => el.classList.contains('zone-has-overlay');
-          
-            // Bloque click souris/touch
-            document.addEventListener('click', (e) => {
-              const z = e.target.closest('div');
-              if (isZone(z) && !isAllowed(z)) {
-                e.stopImmediatePropagation();
-                e.preventDefault();
-              }
-            }, true);
-          
-            // Bloque activation clavier (Enter/Space) si la zone est focusable
-            document.addEventListener('keydown', (e) => {
-              if (e.key !== 'Enter' && e.key !== ' ') return;
-              const z = e.target.closest && e.target.closest('div');
-              if (isZone(z) && !isAllowed(z)) {
-                e.stopImmediatePropagation();
-                e.preventDefault();
-              }
-            }, true);
-          })();
-          </script>
-          <script>
-            document.addEventListener("click", (e) => {
-              const zone = e.target.closest("div[class^='zone'], div[class*=' zone']");
-              if (zone && zone.classList.contains("zone-has-overlay")) {
-                // Empêcher que le clic descende à une autre zone dessous
-                e.stopPropagation();
-                e.stopImmediatePropagation();
-              }
-            }, true);
-            </script>-->
           <style>
             /* Bloquer clics sur toutes les zones sans overlay */
             div[class^="zone"]:not(.zone-has-overlay),
@@ -200,11 +165,20 @@
               pointer-events: auto !important;
             }
             </style>
+            <script>
+              // Pare-feu global : si on clique dans une zone activée, on stoppe la propagation
+              document.addEventListener('click', function (e) {
+                const enabledZone = e.target.closest('.zone-has-overlay');
+                if (enabledZone) {
+                  // Laisse le clic atteindre la cible,
+                  // mais empêche qu'il remonte aux ancêtres (et donc leurs onclick)
+                  e.stopPropagation();
+                }
+              }, true); // <-- capture: true (important)
+            </script>
             <style>
             /* debug visuel (optionnel) */
             .no-plugin-match { outline: 2px dashed rgba(255,0,0,.35); }
             </style>
-            
-            
   </body>
 </html>
