@@ -6,11 +6,34 @@
     <body>
        
         <!--<button id="previousZone">Zone Précédente</button>-->
-        <div class="zone1" onclick="sendWS('s1_z1')">
+        <div class="zone1" onclick="sendWS('sG_z1')">
+            <div class="zone11" onclick="sendWS('sG_z1_1')">
             
+            </div>
         </div>
 
-      
+        <!--<button id="previousZone">Zone Précédente</button>-->
+        <div class="zone2" onclick="sendWS('sG_z2')">
+            <div class="zone21" onclick="sendWS('sG_z2_1')">
+                
+            </div>
+            <div class="zone22" onclick="sendWS('sG_z2_2')">
+                
+            </div>
+            <div class="zone23" onclick="sendWS('sG_z2_2')">
+                
+            </div>
+        </div>
+
+        <!--<button id="previousZone">Zone Précédente</button>-->
+        <div class="zone3" onclick="sendWS('sG_z3')">
+            <div class="zone31" onclick="sendWS('sG_z3_1')">
+                
+            </div>
+            <div class="zone32" onclick="sendWS('sG_z3_2')">
+                
+            </div>
+        </div>
 
         <!-- Ajout du script qui défini les tailles des divs -->
         <script src="scripts/resizeZonesBateauGuillaume.js"></script>
@@ -63,11 +86,11 @@
         }
 
         /* Style pour toutes les zones */
-         .zone1, .zone11, .zone12, .zone13, .zone14, .zone141, .zone142, .zone2,  .zone21, .zone211, .zone212 {
+         .zone1, .zone11, .zone12, .zone13, .zone14, .zone141, .zone142, .zone2,  .zone21, .zone22, .zone23, .zone3 , .zone31,.zone32{
             position: absolute;
             box-sizing: border-box; /* Inclut la bordure dans la taille */
-            /*border: 2px dashed red;
-            background-color: rgba(255, 0, 0, 0.1);*/
+            border: 2px dashed red;
+            background-color: rgba(255, 0, 0, 0.1);
         }
         /* Style pour les tests */
         .newZone, .zone213{
