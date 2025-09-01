@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Exploration de la Tapisserie</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      /* Image de fond */
+      background: url("images/fondTapisserie.webp") no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    /* Filtre blanc semi-transparent */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.6);
+      z-index: 0;
+    }
+
+    h1, .btn {
+      position: relative;
+      z-index: 1; /* Passe au-dessus du filtre */
+    }
+
+    h1 {
+      color: #5d4037;
+      font-size: 2.5em;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .btn {
+      background-color: #8d6e63;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      margin: 10px;
+      font-size: 1.2em;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+      transition: background-color 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background-color: #6d4c41;
+    }
+  </style>
+</head>
+<body>
+  <h1>Exploration de la Tapisserie de Bayeux</h1>
+  <div>
+    <a href="scene.html?id=1" class="btn">Scène 1</a>
+    <a href="scene.html?id=38" class="btn">Scène 38</a>
+  </div>
+</body>
+</html>
